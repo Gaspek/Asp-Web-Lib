@@ -120,6 +120,15 @@
   <data name="Login" xml:space="preserve">
     <value>Zaloguj się</value>
   </data>
+  <data name="Manage_books" xml:space="preserve">
+    <value>Zarządzaj książkami</value>
+  </data>
+  <data name="Manage_permissions" xml:space="preserve">
+    <value>Zarządzaj uprawnieniami</value>
+  </data>
+  <data name="Manage_publishers" xml:space="preserve">
+    <value>Zarządzaj wydawcami</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Zarejestruj się</value>
   </data>

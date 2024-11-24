@@ -200,6 +200,10 @@
     <Compile Include="Migrations\202411241141227_Book_ISBN.Designer.cs">
       <DependentUpon>202411241141227_Book_ISBN.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411241158595_Book_Publisher.cs" />
+    <Compile Include="Migrations\202411241158595_Book_Publisher.Designer.cs">
+      <DependentUpon>202411241158595_Book_Publisher.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
@@ -361,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411241141227_Book_ISBN.resx">
       <DependentUpon>202411241141227_Book_ISBN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411241158595_Book_Publisher.resx">
+      <DependentUpon>202411241158595_Book_Publisher.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Labels.en.resx" />
     <EmbeddedResource Include="Resources\Labels.resx">

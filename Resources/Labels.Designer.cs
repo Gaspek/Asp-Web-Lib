@@ -29,7 +29,7 @@ namespace Asp_Web_Lib.Resources {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Labels() {
+        public Labels() {
         }
         
         /// <summary>
@@ -66,6 +66,33 @@ namespace Asp_Web_Lib.Resources {
         public static string Login {
             get {
                 return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zarządzaj książkami.
+        /// </summary>
+        public static string Manage_books {
+            get {
+                return ResourceManager.GetString("Manage_books", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zarządzaj uprawnieniami.
+        /// </summary>
+        public static string Manage_permissions {
+            get {
+                return ResourceManager.GetString("Manage_permissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zarządzaj wydawcami.
+        /// </summary>
+        public static string Manage_publishers {
+            get {
+                return ResourceManager.GetString("Manage_publishers", resourceCulture);
             }
         }
         

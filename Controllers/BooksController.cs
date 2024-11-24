@@ -6,12 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Asp_Web_Lib.Filters;
 using Asp_Web_Lib.Models;
 
 namespace Asp_Web_Lib.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class BooksController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -41,7 +39,7 @@ namespace Asp_Web_Lib.Controllers
         // GET: Books/Create
         public ActionResult Create()
         {
-            ViewBag.Id = new SelectList(db.Publishers, "Id", "Name");
+            ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name");
             return View();
         }
 
@@ -50,7 +48,7 @@ namespace Asp_Web_Lib.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,PublicationYear,CoverImage")] Book book)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,ISBN,PublicationYear,CoverImage,PublisherId")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +57,7 @@ namespace Asp_Web_Lib.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Id = new SelectList(db.Publishers, "Id", "Name", book.Id);
+            ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name", book.PublisherId);
             return View(book);
         }
 
@@ -75,7 +73,7 @@ namespace Asp_Web_Lib.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Id = new SelectList(db.Publishers, "Id", "Name", book.Id);
+            ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name", book.PublisherId);
             return View(book);
         }
 
@@ -84,7 +82,7 @@ namespace Asp_Web_Lib.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Description,PublicationYear,CoverImage")] Book book)
+        public ActionResult Edit([Bind(Include = "Id,Title,Description,ISBN,PublicationYear,CoverImage,PublisherId")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +90,7 @@ namespace Asp_Web_Lib.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Id = new SelectList(db.Publishers, "Id", "Name", book.Id);
+            ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name", book.PublisherId);
             return View(book);
         }
 
