@@ -1,0 +1,21 @@
+﻿@model Asp_Web_Lib.Models.ManageUserRolesViewModel
+
+@{
+	ViewBag.Title = "Zarządzaj rolami - " + Model.Email;
+}
+
+<h2>Zarządzaj rolami dla @Model.Email</h2>
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	@Html.HiddenFor(m => m.UserId)
+
+	<div class="form-group">
+		@Html.Label("Role")
+		@Html.ListBoxFor(m => m.SelectedRoles, Model.RolesList, new { @class = "form-control" })
+	</div>
+
+	<button type="submit" class="btn btn-success">Zapisz</button>
+	@Html.ActionLink("Powrót", "Index", null, new { @class = "btn btn-default" })
+}

@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Asp_Web_Lib.Models.UserViewModel>
+
+@{
+	ViewBag.Title = "Lista użytkowników";
+}
+
+<h2>Lista użytkowników</h2>
+
+<table class="table">
+	<tr>
+		<th>Email</th>
+		<th>Role</th>
+		<th>Akcje</th>
+	</tr>
+	@foreach (var user in Model)
+	{
+		<tr>
+			<td>@user.Email</td>
+			<td>@string.Join(", ", user.Roles)</td>
+			<td>
+				@Html.ActionLink("Zarządzaj rolami", "ManageRoles", new { userId = user.UserId }, new { @class = "btn btn-primary" })
+			</td>
+		</tr>
+	}
+</table>
