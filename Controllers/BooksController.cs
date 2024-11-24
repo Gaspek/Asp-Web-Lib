@@ -11,8 +11,7 @@ using Asp_Web_Lib.Models;
 
 namespace Asp_Web_Lib.Controllers
 {
-    [Authorize(Users = "Admin")]
-    [Culture]
+    [Authorize(Roles = "Admin")]
     public class BooksController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

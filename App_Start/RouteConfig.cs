@@ -14,14 +14,14 @@ namespace Asp_Web_Lib
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            // Trasa z kulturą jako częścią URL
+            // Trasa z kulturą
             routes.MapRoute(
                 name: "LocalizedDefault",
                 url: "{culture}/{controller}/{action}/{id}",
                 defaults: new { culture = "en", controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            // Domyślna trasa dla zgodności
+            // Trasa domyślna (dla adresów bez kultury)
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

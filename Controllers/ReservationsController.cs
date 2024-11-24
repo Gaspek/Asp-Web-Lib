@@ -11,7 +11,7 @@ using Asp_Web_Lib.Models;
 
 namespace Asp_Web_Lib.Controllers
 {
-    [Authorize(Users = "Admin")]
+[Authorize(Roles = "Admin")]
     [Culture]
     public class ReservationsController : Controller
     {
