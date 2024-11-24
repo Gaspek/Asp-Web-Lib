@@ -204,6 +204,14 @@
     <Compile Include="Migrations\202411241158595_Book_Publisher.Designer.cs">
       <DependentUpon>202411241158595_Book_Publisher.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411241226548_ConfigureBookId.cs" />
+    <Compile Include="Migrations\202411241226548_ConfigureBookId.Designer.cs">
+      <DependentUpon>202411241226548_ConfigureBookId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411241233091_ConfigureBookId1.cs" />
+    <Compile Include="Migrations\202411241233091_ConfigureBookId1.Designer.cs">
+      <DependentUpon>202411241233091_ConfigureBookId1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
@@ -231,6 +239,10 @@
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\NewDB.mdf" />
+    <Content Include="App_Data\NewDB_log.ldf">
+      <DependentUpon>NewDB.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -368,6 +380,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411241158595_Book_Publisher.resx">
       <DependentUpon>202411241158595_Book_Publisher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411241226548_ConfigureBookId.resx">
+      <DependentUpon>202411241226548_ConfigureBookId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411241233091_ConfigureBookId1.resx">
+      <DependentUpon>202411241233091_ConfigureBookId1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Labels.en.resx" />
     <EmbeddedResource Include="Resources\Labels.resx">

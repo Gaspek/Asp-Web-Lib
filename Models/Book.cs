@@ -12,7 +12,8 @@ namespace Asp_Web_Lib.Models
 {
     public class Book
     {
-        [Key]   
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
         [StringLength(100)]

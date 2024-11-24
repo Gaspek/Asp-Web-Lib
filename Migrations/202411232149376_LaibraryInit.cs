@@ -22,7 +22,7 @@
                 "dbo.Books",
                 c => new
                     {
-                        Id = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         Title = c.String(nullable: false, maxLength: 100),
                         Description = c.String(),
                         PublicationYear = c.DateTimeOffset(nullable: false, precision: 7),
