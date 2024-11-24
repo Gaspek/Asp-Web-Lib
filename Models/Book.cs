@@ -18,6 +18,8 @@ namespace Asp_Web_Lib.Models
         [StringLength(100)]
         public string Title { get; set; }
         public string Description { get; set; }
+        [StringLength(13)]
+        public string ISBN { get; set; }
         public DateTimeOffset PublicationYear { get; set; }
         public string CoverImage { get; set; }
         [ForeignKey("Id")]

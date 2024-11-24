@@ -35,6 +35,21 @@
                 var role = new IdentityRole("User");
                 roleManager.Create(role);
             }
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            var adminUser = userManager.FindByEmail("Admin@admin.ad");
+            if (adminUser == null)
+            {
+                adminUser = new ApplicationUser
+                {
+                    UserName = "Admin@admin.ad",
+                    Email = "Admin@admin.ad"
+                };
+                userManager.Create(adminUser, "mWI734!I");
+
+                // Przypisz rolę "Admin"
+                userManager.AddToRole(adminUser.Id, "Admin");
+            }
         }
     }
 }
