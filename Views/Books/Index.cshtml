@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Asp_Web_Lib.Models.Book>
+﻿@using Asp_Web_Lib.Controllers
+@model IEnumerable<Asp_Web_Lib.Models.Book>
 
 @{
     ViewBag.Title = "Index";
@@ -11,9 +12,12 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Publisher.Name)
-        </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.Publisher.Name)
+	    </th>
+	    <th>
+		    Autorzy
+	    </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
@@ -34,9 +38,16 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Publisher.Name)
-        </td>
+	    <td>
+		    @Html.DisplayFor(modelItem => item.Publisher.Name)
+	    </td>
+        
+	    <td>
+		    @foreach (var author in item.Authors)
+		    {
+			    <tr>@author.FirstName @author.LastName</tr>
+		    }
+	    </td>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>

@@ -40,6 +40,7 @@ namespace Asp_Web_Lib.Controllers
         public ActionResult Create()
         {
             ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name");
+            ViewBag.AuthorsId = new SelectList(db.Authors, "Id", "Name");
             return View();
         }
 
