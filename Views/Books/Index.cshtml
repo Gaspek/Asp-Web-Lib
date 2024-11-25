@@ -13,7 +13,7 @@
 <table class="table">
     <tr>
 	    <th>
-		    @Html.DisplayNameFor(model => model.Publisher.Name)
+		    Wydawca
 	    </th>
 	    <th>
 		    Autorzy
@@ -45,7 +45,10 @@
 	    <td>
 		    @foreach (var author in item.Authors)
 		    {
-			    <tr>@author.FirstName @author.LastName</tr>
+			    <ol>
+			    @author.FirstName
+			    @author.LastName
+			    </ol>
 		    }
 	    </td>
         <td>
@@ -58,7 +61,7 @@
             @Html.DisplayFor(modelItem => item.ISBN)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PublicationYear)
+            @item.PublicationYear.LocalDateTime.Day/@item.PublicationYear.LocalDateTime.Month/@item.PublicationYear.LocalDateTime.Year
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CoverImage)

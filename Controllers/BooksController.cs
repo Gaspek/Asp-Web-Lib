@@ -43,7 +43,12 @@ namespace Asp_Web_Lib.Controllers
         public ActionResult Create()
         {
             ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name");
-            ViewBag.AuthorsId = new SelectList(db.Authors, "Id", "Name");
+            var authors = db.Authors.Select(a => new
+            {
+                Id = a.Id,
+                FullName = a.FirstName + " " + a.LastName
+            }).ToList();
+            ViewBag.SelectedAuthorIds = new MultiSelectList(authors, "Id", "FullName");
             return View();
         }
 
@@ -52,16 +57,34 @@ namespace Asp_Web_Lib.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,ISBN,PublicationYear,CoverImage,PublisherId")] Book book)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,ISBN,PublicationYear,CoverImage,PublisherId")] Book book, int[] SelectedAuthorIds)
         {
             if (ModelState.IsValid)
             {
+                if (SelectedAuthorIds != null)
+                {
+                    book.Authors = new List<Author>();
+                    foreach (var authorId in SelectedAuthorIds)
+                    {
+                        var author = db.Authors.Find(authorId);
+                        if (author != null)
+                        {
+                            book.Authors.Add(author);
+                        }
+                    }
+                }
                 db.Books.Add(book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name", book.PublisherId);
+            var authors = db.Authors.Select(a => new
+            {
+                Id = a.Id,
+                FullName = a.FirstName + " " + a.LastName
+            }).ToList();
+            ViewBag.SelectedAuthorIds = new MultiSelectList(authors, "Id", "FullName", SelectedAuthorIds);
             return View(book);
         }
 

@@ -70,6 +70,15 @@ namespace Asp_Web_Lib.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zarządzaj autorami.
+        /// </summary>
+        public static string Manage_authors {
+            get {
+                return ResourceManager.GetString("Manage_authors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zarządzaj książkami.
         /// </summary>
         public static string Manage_books {
