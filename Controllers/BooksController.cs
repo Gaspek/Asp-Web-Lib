@@ -6,10 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Asp_Web_Lib.Filters;
 using Asp_Web_Lib.Models;
 
 namespace Asp_Web_Lib.Controllers
 {
+    [Authorize(Roles = "Admin")]
+    [Culture]
     public class BooksController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

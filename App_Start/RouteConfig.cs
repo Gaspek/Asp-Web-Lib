@@ -18,7 +18,7 @@ namespace Asp_Web_Lib
             routes.MapRoute(
                 name: "LocalizedDefault",
                 url: "{culture}/{controller}/{action}/{id}",
-                defaults: new { culture = "en", controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { culture = "pl", controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
             // Trasa domyślna (dla adresów bez kultury)
