@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Alexandria</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -19,16 +19,33 @@
     }
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("Alexandria", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
-                </ul>
+            <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
+            <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
+            <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
+        </ul>
+
+                <!--Wyszukiwarka książek-->
+                <!--<form class="d-flex" action="@Url.Action("Search", "Home")" method="get">
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search..." aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>-->
+
+                <!--Odnośnik do powiadomień-->
+                <!--<a class="btn btn-outline-light ms-3" href="@Url.Action("Notifications", "Home")" title="Notifications">
+                    <i class="bi bi-bell"></i>--> <!-- Ikona powiadomień (Bootstrap Icons) -->
+                <!--</a>-->
+
+                <!--Odnośnik do koszyka-->
+                <!--<a class="btn btn-outline-light ms-3" href="@Url.Action("Cart", "Home")" title="Cart">
+                    <i class="bi bi-cart"></i>--> <!-- Ikona koszyka (Bootstrap Icons) -->
+                <!--</a>-->
+
                 @Html.Partial("_LoginPartial")
 
                 <!-- Dodanie przełącznika języka -->
@@ -51,7 +68,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Alexandria</p>
         </footer>
     </div>
 
