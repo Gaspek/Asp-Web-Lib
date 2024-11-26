@@ -32,4 +32,9 @@ namespace Asp_Web_Lib.Models
         public virtual ICollection<Review> Reviews { get; set; }
 
     }
+    public class BookRatingViewModel
+    {
+        public Book Book { get; set; }
+        public Review NewReview { get; set; }
+    }
 }

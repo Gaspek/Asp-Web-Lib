@@ -43,7 +43,7 @@ namespace Asp_Web_Lib.Controllers
         public ActionResult Create()
         {
             ViewBag.BookId = new SelectList(db.Books, "Id", "Title");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
+            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName");
             return View();
         }
 
@@ -62,7 +62,7 @@ namespace Asp_Web_Lib.Controllers
             }
 
             ViewBag.BookId = new SelectList(db.Books, "Id", "Title", review.BookId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", review.UserId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", review.UserId);
             return View(review);
         }
 

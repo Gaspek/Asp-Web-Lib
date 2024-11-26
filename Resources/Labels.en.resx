@@ -132,6 +132,9 @@
   <data name="Manage_publishers" xml:space="preserve">
     <value>Manage publishers</value>
   </data>
+  <data name="Manage_reviews" xml:space="preserve">
+    <value>Manage_reviews</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>

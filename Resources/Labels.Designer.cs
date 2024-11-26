@@ -106,6 +106,15 @@ namespace Asp_Web_Lib.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zarządzaj ocenami.
+        /// </summary>
+        public static string Manage_reviews {
+            get {
+                return ResourceManager.GetString("Manage_reviews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zarejestruj się.
         /// </summary>
         public static string Register {

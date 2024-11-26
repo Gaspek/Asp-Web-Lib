@@ -147,6 +147,49 @@ namespace Asp_Web_Lib.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Books/Rate/5
+        public ActionResult Rate(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var book = db.Books.Include(b => b.Reviews).FirstOrDefault(b => b.Id == id);
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+
+            var viewModel = new BookRatingViewModel
+            {
+                Book = book,
+                NewReview = new Review { BookId = book.Id }
+            };
+            return View(viewModel);
+        }
+
+        // POST: Books/Rate/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Rate([Bind(Include = "BookId,UserId,Rating,Comment")] Review review)
+        {
+            if (ModelState.IsValid)
+            {
+                review.Date = DateTime.Now;
+                db.Reviews.Add(review);
+                db.SaveChanges();
+                return RedirectToAction("Rate", new { id = review.BookId });
+            }
+            var book = db.Books.Include(b => b.Reviews).FirstOrDefault(b => b.Id == review.BookId);
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.NewReview = review;
+            return View(book);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

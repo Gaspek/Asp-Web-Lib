@@ -1,3 +1,4 @@
+using Asp_Web_Lib.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,12 @@ namespace Asp_Web_Lib
             // Pobierz aktualn¹ œcie¿kê URL
             var url = HttpContext.Current.Request.Url.LocalPath;
 
+            // Wyklucz zasoby statyczne
+            if (HttpContext.Current.Request.CurrentExecutionFilePathExtension != "")
+            {
+                return;
+            }
+
             // SprawdŸ, czy œcie¿ka zawiera parametr culture
             var segments = url.Trim('/').Split('/');
             if (segments.Length > 0 && IsCultureSegment(segments[0]))
@@ -24,8 +31,9 @@ namespace Asp_Web_Lib
             }
 
             // Jeœli brak kultury w URL, ustaw domyœln¹
-            var culture = "pl"; // Domyœlna kultura
-            var newUrl = $"/{culture}{url}";
+            var culture = CultureHelper.GetDefaultCulture(); // Pobierz kulturê domyœln¹
+            var query = HttpContext.Current.Request.Url.Query; // Zachowaj QueryString
+            var newUrl = $"/{culture}{url}{query}";
 
             // Przekierowanie do nowego URL
             HttpContext.Current.Response.Redirect(newUrl, true);
@@ -37,8 +45,6 @@ namespace Asp_Web_Lib
             var supportedCultures = new[] { "en", "pl" };
             return supportedCultures.Contains(segment.ToLower());
         }
-
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

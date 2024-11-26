@@ -30,9 +30,9 @@
         <th>
             @Html.DisplayNameFor(model => model.PublicationYear)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CoverImage)
-        </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.CoverImage)
+	    </th>
         <th></th>
     </tr>
 
@@ -68,12 +68,13 @@
             @item.PublicationYear.LocalDateTime.Day/@item.PublicationYear.LocalDateTime.Month/@item.PublicationYear.LocalDateTime.Year
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CoverImage)
+	        @Html.DisplayFor(modelItem => item.CoverImage)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Rate", "Rate", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

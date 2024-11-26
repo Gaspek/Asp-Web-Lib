@@ -132,6 +132,9 @@
   <data name="Manage_publishers" xml:space="preserve">
     <value>Zarządzaj wydawcami</value>
   </data>
+  <data name="Manage_reviews" xml:space="preserve">
+    <value>Zarządzaj ocenami</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Zarejestruj się</value>
   </data>

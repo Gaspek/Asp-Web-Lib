@@ -1,0 +1,54 @@
+﻿@model Asp_Web_Lib.Models.BookRatingViewModel
+@{
+	ViewBag.Title = "Rate Book";
+}
+
+<h2>Rate: @Model.Book.Title</h2>
+
+<h3>Leave a Review</h3>
+@using (Html.BeginForm("Rate", "Books", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+	@Html.HiddenFor(m => m.NewReview.BookId)
+
+	<div class="form-horizontal">
+		<div class="form-group">
+			@Html.LabelFor(m => m.NewReview.Rating, "Rating (1-5)", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.TextBoxFor(m => m.NewReview.Rating, new { @class = "form-control", type = "number", min = "1", max = "5" })
+				@Html.ValidationMessageFor(m => m.NewReview.Rating, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(m => m.NewReview.Comment, "Comment", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.TextAreaFor(m => m.NewReview.Comment, new { @class = "form-control" })
+				@Html.ValidationMessageFor(m => m.NewReview.Comment, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Submit Review" class="btn btn-primary" />
+			</div>
+		</div>
+	</div>
+}
+
+<h3>Reviews</h3>
+@if (Model.Book.Reviews != null && Model.Book.Reviews.Any())
+{
+	<ul>
+		@foreach (var review in Model.Book.Reviews)
+		{
+			<li>
+				<strong>@review.User.UserName:</strong> @review.Comment 
+				<br />
+				<small>Rating: @review.Rating/5 - @review.Date.ToShortDateString()</small>
+			</li>
+		}
+	</ul>
+}
+else
+{
+	<p>No reviews yet for this book.</p>
+}
