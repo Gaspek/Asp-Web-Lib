@@ -22,9 +22,8 @@ namespace Asp_Web_Lib.Models
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
         [Required]
-        public DateTime ReservationDate { get; set; }
+        public DateTimeOffset ReservationDate { get; set; }
         [Required]
-        [StringLength(20)]
-        public string Status { get; set; } // np. "Aktywna", "Anulowana", "Zrealizowana"
+        public Status.CopyStatus Status { get; set; } // np. "Aktywna", "Anulowana", "Zrealizowana"
     }
 }

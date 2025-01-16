@@ -58,17 +58,6 @@ namespace Asp_Web_Lib.Models
                     m.MapLeftKey("BookId");
                     m.MapRightKey("AuthorId");
                 });
-
-            // Konfiguracja relacji wiele do wielu między Book a Category
-            modelBuilder.Entity<Book>()
-                .HasMany(b => b.Categories)
-                .WithMany(c => c.Books)
-                .Map(m =>
-                {
-                    m.ToTable("BookCategories");
-                    m.MapLeftKey("BookId");
-                    m.MapRightKey("CategoryId");
-                });
         }
 
         public static ApplicationDbContext Create()

@@ -19,7 +19,7 @@ namespace Asp_Web_Lib.Models
         [Required]
         public string Message { get; set; }
         [Required]
-        public DateTime Date { get; set; }
+        public DateTimeOffset Date { get; set; }
         public bool IsRead { get; set; }
     }
 }

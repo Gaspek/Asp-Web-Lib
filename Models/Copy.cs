@@ -18,8 +18,7 @@ namespace Asp_Web_Lib.Models
         [StringLength(50)]
         public string ShelfLocation { get; set; }
         [Required]
-        [StringLength(20)]
-        public string Status { get; set; } // np. "Dostępny", "Wypożyczony", "Zarezerwowany"
+        public Status.CopyStatus Status { get; set; } // np. "Dostępny", "Wypożyczony", "Zarezerwowany"
         public virtual ICollection<Loan> Loans { get; set; }
         public virtual ICollection<Reservation> Reservations { get; set; }
     }

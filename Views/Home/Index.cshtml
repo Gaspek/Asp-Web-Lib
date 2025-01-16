@@ -4,7 +4,7 @@
         <div class="slider-container">
             @foreach (var book in Model.Books)
             {
-                <div class="book" onclick="navigateToBook(@book.BookId)">
+                <div class="book" onclick="navigateToBook(@book.BookId)" tabindex="0" onkeypress="handleKeyPress(event, @book.BookId)">
                     <img src="@book.CoverImage" alt="Okładka książki '@book.Title' autorstwa @book.Authors">
                     <div class="book-title">@book.Title</div>
                     <div class="book-author">@book.Authors</div>
@@ -27,6 +27,13 @@
         function navigateToBook(bookId) {
             window.location.href = `Books/Details/${bookId}`;
         }
+        function handleKeyPress(event, bookId) {
+            if (event.key === 'Enter') {
+                // Jeśli naciśnięto Enter, wywołaj funkcję navigateToBook
+                navigateToBook(bookId);
+            }
+	    }
+
     </script>
 }
 
@@ -39,17 +46,17 @@
 
     .slider-wrapper {
         background:  #f4f4f4; 
-        padding: 10px;
-        border-radius: 10px;
+        padding: 0.8rem;
+        border-radius: 0.8rem;
     }
 
     .slider-container {
         display: flex;
-        gap: 15px;
+        gap: 1rem;
         overflow-x: scroll;
         white-space: nowrap;
-        padding: 20px;
-        height: 500px;
+        padding: 1.2rem;
+        height: 32rem;
         background-color: #f4f4f4;
         scrollbar-width: none;
     }
@@ -60,14 +67,13 @@
 
     .book {
         display: inline-block;
-        margin-right: 15px;
         background-color: #fff;
         border: 1px solid #ddd;
         border-radius: 5px;
         text-align: center;
-        padding: 15px;
+        padding: 1rem;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        width: 300px;
+        width: 18.75rem;
         flex-shrink: 0;
     }
 
@@ -85,44 +91,44 @@
 
         .book img {
             width: auto;
-            max-width: 250px;
-            height: 300px;
+            max-width: 15.625rem;
+            height: 18.75rem;
             border-radius: 5px;
         }
 
     .book-title {
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: bold;
-        margin: 10px 0 5px;
+        margin: 0.8rem 0 0.2rem;
     }
 
     .book-author {
-        font-size: 14px;
+        font-size: 0.9rem;
         color: #555;
-        margin-bottom: 10px;
+        margin-bottom: 0.2rem;
     }
 
     .section-title {
-        font-size: 28px;
+        font-size: 3rem;
         font-weight: bold;
         text-align: left;
         width: 100%;
-        margin: 30px 0;
+        margin: 2rem 0;
         color: #222;
         border-bottom: 2px solid #ddd;
         display: inline-block;
-        margin-bottom: 5px;
+        margin-bottom: 0.3rem;
     }
 
     .book-description {
-        font-size: 13px;
+        font-size: 0.8rem;
         color: #777;
         word-wrap: break-word;
         white-space: normal;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
     }
 </style>

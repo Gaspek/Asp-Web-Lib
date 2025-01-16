@@ -180,37 +180,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CultureHelper.cs" />
-    <Compile Include="Migrations\202411231454349_InitialCreate.cs" />
-    <Compile Include="Migrations\202411231454349_InitialCreate.Designer.cs">
-      <DependentUpon>202411231454349_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411231506488_InitialCreate1.cs" />
-    <Compile Include="Migrations\202411231506488_InitialCreate1.Designer.cs">
-      <DependentUpon>202411231506488_InitialCreate1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411231539089_InitializeIdentity.cs" />
-    <Compile Include="Migrations\202411231539089_InitializeIdentity.Designer.cs">
-      <DependentUpon>202411231539089_InitializeIdentity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411232149376_LaibraryInit.cs" />
-    <Compile Include="Migrations\202411232149376_LaibraryInit.Designer.cs">
-      <DependentUpon>202411232149376_LaibraryInit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411241141227_Book_ISBN.cs" />
-    <Compile Include="Migrations\202411241141227_Book_ISBN.Designer.cs">
-      <DependentUpon>202411241141227_Book_ISBN.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411241158595_Book_Publisher.cs" />
-    <Compile Include="Migrations\202411241158595_Book_Publisher.Designer.cs">
-      <DependentUpon>202411241158595_Book_Publisher.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411241226548_ConfigureBookId.cs" />
-    <Compile Include="Migrations\202411241226548_ConfigureBookId.Designer.cs">
-      <DependentUpon>202411241226548_ConfigureBookId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411241233091_ConfigureBookId1.cs" />
-    <Compile Include="Migrations\202411241233091_ConfigureBookId1.Designer.cs">
-      <DependentUpon>202411241233091_ConfigureBookId1.cs</DependentUpon>
+    <Compile Include="Migrations\202501161835328_Init.cs" />
+    <Compile Include="Migrations\202501161835328_Init.Designer.cs">
+      <DependentUpon>202501161835328_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -226,6 +198,7 @@
     <Compile Include="Models\Publisher.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\Status.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
@@ -237,9 +210,13 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Database.mdf" />
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\Database_log.ldf">
+      <DependentUpon>Database.mdf</DependentUpon>
     </Content>
     <Content Include="App_Data\NewDB.mdf" />
     <Content Include="App_Data\NewDB_log.ldf">
@@ -364,29 +341,8 @@
     <Content Include="Views\Reviews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202411231454349_InitialCreate.resx">
-      <DependentUpon>202411231454349_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411231506488_InitialCreate1.resx">
-      <DependentUpon>202411231506488_InitialCreate1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411231539089_InitializeIdentity.resx">
-      <DependentUpon>202411231539089_InitializeIdentity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411232149376_LaibraryInit.resx">
-      <DependentUpon>202411232149376_LaibraryInit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411241141227_Book_ISBN.resx">
-      <DependentUpon>202411241141227_Book_ISBN.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411241158595_Book_Publisher.resx">
-      <DependentUpon>202411241158595_Book_Publisher.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411241226548_ConfigureBookId.resx">
-      <DependentUpon>202411241226548_ConfigureBookId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411241233091_ConfigureBookId1.resx">
-      <DependentUpon>202411241233091_ConfigureBookId1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202501161835328_Init.resx">
+      <DependentUpon>202501161835328_Init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Labels.en.resx" />
     <EmbeddedResource Include="Resources\Labels.resx">

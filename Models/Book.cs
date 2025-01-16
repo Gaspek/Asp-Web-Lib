@@ -23,11 +23,13 @@ namespace Asp_Web_Lib.Models
         public string ISBN { get; set; }
         public DateTimeOffset PublicationYear { get; set; }
         public string CoverImage { get; set; }
-        [ForeignKey("Publisher")]
         public int PublisherId { get; set; }
+        [ForeignKey("PublisherId")]
         public virtual Publisher Publisher { get; set; }
         public virtual ICollection<Author> Authors { get; set; }
-        public virtual ICollection<Category> Categories { get; set; }
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public virtual Category Category { get; set; }
         public virtual ICollection<Copy> Copies { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
 

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Asp_Web_Lib.Filters;
 using Asp_Web_Lib.Models;
+using Asp_Web_Lib.ViewModels;
 
 namespace Asp_Web_Lib.Controllers
 {
@@ -41,6 +42,10 @@ namespace Asp_Web_Lib.Controllers
         // GET: Categories/Create
         public ActionResult Create()
         {
+            var categories = db.Categories
+                .OrderBy(c => c.Name)
+                .ToList();
+            ViewBag.Categories = new SelectList(categories, "Id","GetFullPath");
             return View();
         }
 
@@ -49,15 +54,22 @@ namespace Asp_Web_Lib.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description")] Category category)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,ParentCategoryId")] Category category)
         {
+            if (db.Categories.Any(c => c.Name.Trim().ToLower() == category.Name.Trim().ToLower()))
+            {
+                ModelState.AddModelError("", "Taka kategoria już istnieje.");
+            }
             if (ModelState.IsValid)
             {
                 db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            var categories = db.Categories
+                .OrderBy(c => c.Name)
+                .ToList();
+            ViewBag.Categories = new SelectList(categories, "Id", "GetFullPath");
             return View(category);
         }
 

@@ -24,8 +24,9 @@ namespace Asp_Web_Lib.Models
         [Required]
         [Range(1, 5)]
         public int Rating { get; set; } // Ocena w skali 1-5
+        [StringLength(500)]
         public string Comment { get; set; }
         [Required]
-        public DateTime Date { get; set; }
+        public DateTimeOffset Date { get; set; }
     }
 }

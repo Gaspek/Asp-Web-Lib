@@ -27,5 +27,10 @@ namespace Asp_Web_Lib.ViewModels
         public string Description { get; set; }
         public string CoverImage { get; set; }
         public string Authors { get; set; }
+        public string Category { get; set; }
+        public string ISBN { get; set; }
+        public uint Rating { get; set; }
+        public string PublicationYear { get; set; }
+        public string Publisher { get; set; }
     }
 }
