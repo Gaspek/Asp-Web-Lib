@@ -1,33 +1,115 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿<main>
+	<h2 class="section-title">Nowe Pozycje</h2>
+	<div class="slider-container">
+		@foreach (var book in Model.Books)
+		{
+			<div class="book">
+				<img src="@book.CoverImage" alt="@book.Title">
+				<div class="book-title">@book.Title</div>
+				<div class="book-author">@book.Authors</div>
+				<div class="book-description">@book.Description</div>
+			</div>
+		}
+	</div>
+</main>
+@section scripts
+{
+    <script>
+        // Enable horizontal scroll with vertical mouse wheel
+        const slider = document.querySelector('.slider-container');
+        slider.addEventListener('wheel', (event) => {
+            event.preventDefault();
+            slider.scrollLeft += event.deltaY;
+        });
+    </script>
 }
 
-<main>
-    @*<section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<style>
+        main {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
-    </div>*@
-</main>
+        .slider-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: scroll;
+            white-space: nowrap;
+            padding: 20px;
+            height: 500px;
+            background-color: #f4f4f4;
+            scrollbar-width: none;
+        }
+
+        .slider-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .book {
+            display: inline-block;
+            margin-right: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+         .book > * {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+         .book:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .book img {
+            width: auto;
+            max-width: 250px;
+            height: 300px;
+            border-radius: 5px;
+        }
+
+        .book-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 10px 0 5px;
+        }
+
+        .book-author {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: left;
+            width: 100%;
+            margin: 30px 0;
+            color: #222;
+            border-bottom: 2px solid #ddd;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .book-description {
+            font-size: 13px;
+            color: #777;
+            word-wrap: break-word;
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+    </style>
+
