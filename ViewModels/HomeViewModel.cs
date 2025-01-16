@@ -19,6 +19,8 @@ namespace Asp_Web_Lib.ViewModels
     public class BookViewModel
     {
         [Required]
+        public int BookId { get; set; }
+        [Required]
         [StringLength(20)]
         public string Title { get; set; }
         [StringLength(200)]

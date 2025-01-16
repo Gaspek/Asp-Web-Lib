@@ -14,13 +14,14 @@ namespace Asp_Web_Lib.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             var Books = db.Books.ToList();
             var model = new HomeViewModel()
             {
                 Books = Books.Select(b => new BookViewModel
                 {
+                    BookId = b.Id,
                     Title = b.Title,
                     Description = b.Description,
                     Authors = string.Join(", ", b.Authors.Select(a => a.FirstName)),

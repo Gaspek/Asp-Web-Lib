@@ -1,66 +1,82 @@
-﻿@model Asp_Web_Lib.Models.Book
+﻿<main>
+	<div class="book-details">
+		<img class="book-cover" src="@Model.CoverImage" alt="Okładka książki '@Model.Title' autorstwa @Model.Authors">
+		<div class="book-info">
+			<h1 class="book-title">@Model.Title</h1>
+			<h2 class="book-author">Autor: @Model.Authors</h2>
+			<p class="book-description">@Model.Description</p>
+			<div class="book-meta">
+				<p><strong>Data wydania:</strong> @Model.PublicationYear</p>
+				<p><strong>Gatunek:</strong> @Model.Categories</p>
+				<p><strong>ISBN:</strong> @Model.ISBN</p>
+			</div>
+			<a href="/" class="back-button">Powrót do listy książek</a>
+		</div>
+	</div>
+</main>
 
-@{
-    ViewBag.Title = "Details";
-}
+<style>
+    main {
+        font-family: Arial, sans-serif;
+        margin: 20px auto;
+        max-width: 800px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-<h2>Details</h2>
+    .book-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
 
-<div>
-    <h4>Book</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Publisher.Name)
-        </dt>
+    .book-cover {
+        width: 300px;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Publisher.Name)
-        </dd>
+    .book-info {
+        flex: 1;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+    .book-title {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+    .book-author {
+        font-size: 20px;
+        color: #555;
+        margin-bottom: 15px;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+    .book-description {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+    .book-meta p {
+        font-size: 14px;
+        margin: 5px 0;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ISBN)
-        </dt>
+    .back-button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #324ab3;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.2s;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.ISBN)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PublicationYear)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PublicationYear)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CoverImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CoverImage)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    .back-button:hover {
+        background-color: #222;
+    }
+</style>
