@@ -24,7 +24,7 @@ namespace Asp_Web_Lib.Controllers
                     BookId = b.Id,
                     Title = b.Title,
                     Description = b.Description,
-                    Authors = string.Join(", ", b.Authors.Select(a => a.FirstName)),
+                    Authors = string.Join(", ", b.Authors.Select(a => a.FirstName +" "+ a.LastName)),
                     CoverImage = b.CoverImage
                 }).ToList()
             };

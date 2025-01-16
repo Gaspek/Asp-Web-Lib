@@ -125,6 +125,19 @@ namespace Asp_Web_Lib.Controllers
         // GET: Books/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name");
+            var authors = db.Authors.Select(a => new
+            {
+                Id = a.Id,
+                FullName = a.FirstName + " " + a.LastName
+            }).ToList();
+            ViewBag.SelectedAuthorIds = new MultiSelectList(authors, "Id", "FullName");
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
+            var category = db.Categories.Select(a => new
+            {
+                Id = a.Id,
+                Name = a.Name
+            }).ToList().OrderBy(a => a.Name);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -143,11 +156,54 @@ namespace Asp_Web_Lib.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Description,ISBN,PublicationYear,CoverImage,PublisherId")] Book book)
+        public ActionResult Edit([Bind(Include = "Id,Title,Description,ISBN,PublicationYear,CoverImage,PublisherId,CategoryId")] Book book, int[] SelectedAuthorIds)
         {
+            // Pobranie książki i sprawdzenie tytułu oraz ISBN
+            var existingBooks = db.Books
+                .Where(b => b.Id == book.Id || b.Title.Trim().ToLower() == book.Title.Trim().ToLower() || b.ISBN.Trim().ToLower() == book.ISBN.Trim().ToLower())
+                .ToList();
+            if (!existingBooks.Any())
+            {
+                return HttpNotFound();
+            }
+            // Sprawdzamy unikalność tytułu i ISBN
+            if (existingBooks.Any(b => b.Title.ToLower().Trim() == book.Title.ToLower().Trim() && b.Id != book.Id))
+            {
+                ModelState.AddModelError("Title", "Książka o takim tytule już istnieje");
+            }
+            if (existingBooks.Any(b => b.ISBN.ToLower().Trim() == book.ISBN.ToLower().Trim() && b.Id != book.Id))
+            {
+                ModelState.AddModelError("ISBN", "Książka o takim nr ISBN już istnieje");
+            }
             if (ModelState.IsValid)
             {
-                db.Entry(book).State = EntityState.Modified;
+                // Pobranie książki do aktualizacji
+                var bookToUpdate = db.Books.Find(book.Id);
+                if (bookToUpdate == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Aktualizacja pól
+                bookToUpdate.Title = book.Title;
+                bookToUpdate.Description = book.Description;
+                bookToUpdate.ISBN = book.ISBN;
+                bookToUpdate.PublicationYear = book.PublicationYear;
+                bookToUpdate.PublisherId = book.PublisherId;
+                if (SelectedAuthorIds != null)
+                {
+                    bookToUpdate.Authors = new List<Author>();
+                    foreach (var authorId in SelectedAuthorIds)
+                    {
+                        var author = db.Authors.Find(authorId);
+                        if (author != null)
+                        {
+                            bookToUpdate.Authors.Add(author);
+                        }
+                    }
+                }
+
+                db.Entry(bookToUpdate).CurrentValues.SetValues(book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
