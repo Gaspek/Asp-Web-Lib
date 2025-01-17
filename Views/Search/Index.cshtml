@@ -39,7 +39,7 @@
                             <img src="${book.CoverImg}" alt="Okładka książki '${book.Title}' autorstwa ${book.Author}">
                             <div class="book-title">${book.Title}</div>
                             <div class="book-author">${book.Author}</div>
-                            <div class="book-description">${book.Description || "Brak opisu"}</div>
+                            <div class="book-description">ISBN: ${book.ISBN || "Brak ISBN"}</div>
                         </div>
                     `).join('');
 
