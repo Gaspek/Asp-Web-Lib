@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Asp_Web_Lib.Models.Copy>
+﻿@model IEnumerable<Asp_Web_Lib.Models.Tag>
 
 @{
     ViewBag.Title = "Index";
@@ -12,13 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Book.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShelfLocation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th></th>
     </tr>
@@ -27,13 +21,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Book.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShelfLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

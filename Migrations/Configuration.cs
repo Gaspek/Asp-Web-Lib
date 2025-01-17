@@ -30,6 +30,13 @@
                 roleManager.Create(role);
             }
 
+            if (!roleManager.RoleExists("Worker"))
+            {
+                var role = new IdentityRole("Worker");
+                roleManager.Create(role);
+            }
+
+
             if (!roleManager.RoleExists("User"))
             {
                 var role = new IdentityRole("User");

@@ -32,6 +32,7 @@ namespace Asp_Web_Lib.Models
         public virtual Category Category { get; set; }
         public virtual ICollection<Copy> Copies { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
 
     }
 }

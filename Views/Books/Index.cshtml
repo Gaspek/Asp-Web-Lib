@@ -1,81 +1,85 @@
-﻿@using Asp_Web_Lib.Controllers
+﻿@using System.Web.UI.WebControls
+@using Asp_Web_Lib.Controllers
 @model IEnumerable<Asp_Web_Lib.Models.Book>
+<main>
+	<h2 class="title">Książki</h2>
 
-@{
-    ViewBag.Title = "Index";
-}
+	<p id="createBtn">
+		@Html.ActionLink("Create New", "Create", null, new { @class = "full-width-button" })
+	</p>
+	<div class="table-container">
+		<table class="table">
+			<tr class="header">
+				<th>
+					Wydawca
+				</th>
+				<th>
+					Autorzy
+				</th>
+				<th>
+					Tytuł
+				</th>
+				<th>
+					Opis
+				</th>
+				<th>
+					ISBN
+				</th>
+				<th>
+					Rok wydania
+				</th>
+				<th>
+					Okładka
+				</th>
+				<th></th>
+			</tr>
 
-<h2>Index</h2>
+			@foreach (var item in Model)
+			{
+				<tr class="content">
+					<td>
+						@Html.DisplayFor(modelItem => item.Publisher.Name)
+					</td>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-	    <th>
-		    Wydawca
-	    </th>
-	    <th>
-		    Autorzy
-	    </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ISBN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PublicationYear)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CoverImage)
-        </th>
-        <th></th>
-    </tr>
+					<td>
+						@if (@item.Authors.Count < 1)
+						{
+							@:Autor nieznany
+						}
+						@foreach (var author in item.Authors)
+						{
+							<div>
+								@author.FirstName @author.LastName
+							</div>
+						}
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Title)
+					</td>
+					<td class="long-text">
+						@Html.DisplayFor(modelItem => item.Description)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.ISBN)
+					</td>
+					<td>
+						@item.PublicationYear.LocalDateTime.Day/@item.PublicationYear.LocalDateTime.Month/@item.PublicationYear.LocalDateTime.Year
+					</td>
+					<td>
+						<img src="@item.CoverImage" />
+					</td>
+					<td class="link-container">
+                        <div class="action-buttons">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "table-button" })
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "table-button" })
+                            @Html.ActionLink("Tags", "Tags", new { id = item.Id }, new { @class = "table-button" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "table-button" })
+                        </div>
+					</td>
+				</tr>
+			}
+		</table>
+	</div>
+</main>
+@Styles.Render("~/Content/Styles/ModelPanel.css")
 
-@foreach (var item in Model) {
-    <tr>
-	    <td>
-		    @Html.DisplayFor(modelItem => item.Publisher.Name)
-	    </td>
-        
-	    <td>
-            @if (@item.Authors.Count < 1)
-            {
-	            @:Autor nieznany
-            }
-		    @foreach (var author in item.Authors)
-		    {
-			    <div>
-				    @author.FirstName
-				    @author.LastName
-			    </div>
-		    }
-	    </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ISBN)
-        </td>
-        <td>
-            @item.PublicationYear.LocalDateTime.Day/@item.PublicationYear.LocalDateTime.Month/@item.PublicationYear.LocalDateTime.Year
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CoverImage)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>

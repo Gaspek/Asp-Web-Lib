@@ -44,6 +44,7 @@ namespace Asp_Web_Lib.Models
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Tag> Tags { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -57,6 +58,17 @@ namespace Asp_Web_Lib.Models
                     m.ToTable("BookAuthors");
                     m.MapLeftKey("BookId");
                     m.MapRightKey("AuthorId");
+                });
+
+            // Konfiguracja relacji wiele do wielu między Book a Tag
+            modelBuilder.Entity<Book>()
+                .HasMany(b => b.Tags)
+                .WithMany(t => t.Books)
+                .Map(m =>
+                {
+                    m.ToTable("BookTags"); // Nazwa tabeli pośredniczącej
+                    m.MapLeftKey("BookId"); // Klucz obcy dla Book
+                    m.MapRightKey("TagId"); // Klucz obcy dla Tag
                 });
         }
 

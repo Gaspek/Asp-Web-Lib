@@ -14,7 +14,7 @@ using Microsoft.SqlServer.Server;
 
 namespace Asp_Web_Lib.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Worker")]
     [Culture]
     public class BooksController : Controller
     {
@@ -29,6 +29,31 @@ namespace Asp_Web_Lib.Controllers
 
         // GET: Books/Details/5
         public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Book book = db.Books.Find(id);
+            var bookViewModel = new BookViewModel()
+            {
+                Title = book.Title,
+                Authors = string.Join(", ", book.Authors.Select(a => a.FirstName + " " + a.LastName)),
+                Description = book.Description,
+                CoverImage = book.CoverImage,
+                ISBN = book.ISBN,
+                PublicationYear = book.PublicationYear.ToString("dd-MM-yyyy"),
+                Publisher = book.Publisher.Name,
+                Category = book.Category.Name
+            };
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+            return View(bookViewModel);
+        }
+        // GET: Books/Tags/5
+        public ActionResult Tags(int? id)
         {
             if (id == null)
             {
