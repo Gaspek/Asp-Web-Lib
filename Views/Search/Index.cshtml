@@ -1,0 +1,181 @@
+﻿<main>
+    <h2 class="section-title">Wyszukiwarka Książek</h2>
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Wpisz tytuł lub autora..." oninput="performSearch()">
+    </div>
+    <div class="results-wrapper">
+        <div id="searchResults" class="results-container">
+            <!-- Wyniki wyszukiwania będą dynamicznie dodawane tutaj -->
+        </div>
+    </div>
+</main>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/selectize.js")
+    <script>
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (query.length === 0) {
+                document.getElementById('searchResults').innerHTML = "<p>Wpisz zapytanie, aby wyszukać książki.</p>";
+                return;
+            }
+
+            $.ajax({
+                url: '/Search/GetBooks',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    let filteredBooks = filterBooksByQuery(data, query);
+
+                    if (filteredBooks.length === 0) {
+                        document.getElementById('searchResults').innerHTML = "<p>Brak wyników.</p>";
+                        return;
+                    }
+
+                    let resultsHtml = filteredBooks.map(book => `
+                        <div class="book" onclick="navigateToBook(${book.Id})" tabindex="0" onkeypress="handleKeyPress(event, ${book.Id})">
+                            <img src="${book.CoverImg}" alt="Okładka książki '${book.Title}' autorstwa ${book.Author}">
+                            <div class="book-title">${book.Title}</div>
+                            <div class="book-author">${book.Author}</div>
+                            <div class="book-description">${book.Description || "Brak opisu"}</div>
+                        </div>
+                    `).join('');
+
+                    document.getElementById('searchResults').innerHTML = resultsHtml;
+                },
+                error: function (xhr) {
+                    console.error("Błąd AJAX:", xhr.status, xhr.responseText);
+                    document.getElementById('searchResults').innerHTML = "<p>Błąd pobierania danych.</p>";
+                }
+            });
+        }
+
+        function filterBooksByQuery(books, query) {
+            let terms = query.match(/(?:[^\s"]+|"[^"]*")+/g) || [];
+            let includeTerms = [];
+            let excludeTerms = [];
+            let isOrSearch = false;
+
+            for (let i = 0; i < terms.length; i++) {
+                let term = terms[i].replace(/"/g, '').toLowerCase();
+
+                if (term === "||") {
+                    isOrSearch = true;
+                } else if (term === "&&") {
+                    continue;
+                } else if (term.startsWith("!")) {
+                    excludeTerms.push(term.replace("!", "").trim());
+                } else {
+                    includeTerms.push(term);
+                }
+            }
+
+            return books.filter(book => {
+                let title = book.Title.toLowerCase();
+                let author = book.Author.toLowerCase();
+                let isbn = book.ISBN.toLowerCase();
+
+                let matchesInclude = includeTerms.length === 0 ||
+                    (isOrSearch
+                        ? includeTerms.some(term => title.includes(term) || author.includes(term) || isbn.includes(term))
+                        : includeTerms.every(term => title.includes(term) || author.includes(term) || isbn.includes(term)));
+
+                let matchesExclude = excludeTerms.some(term => title.includes(term) || author.includes(term) || isbn.includes(term));
+
+                return matchesInclude && !matchesExclude;
+            });
+        }
+
+        function navigateToBook(bookId) {
+            window.location.href = `/Books/Details/${bookId}`;
+        }
+
+        function handleKeyPress(event, bookId) {
+            if (event.key === "Enter" || event.key === " ") {
+                navigateToBook(bookId);
+            }
+        }
+    </script>
+
+
+}
+
+@Styles.Render("~/Content/selectize.bootstrap3.css")
+
+<style>
+    main {
+        font-family: Arial, sans-serif;
+        margin: 2rem auto;
+        max-width: 50rem;
+        padding: 1.5rem;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        color: #333333;
+    }
+
+    .search-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .search-input {
+        padding: 0.8rem;
+        width: 70%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .results-wrapper {
+        margin-top: 1.5rem;
+    }
+
+    .results-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .book {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 1rem;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 12.5rem;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .book:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .book img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+    .book-title {
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 0.5rem 0;
+    }
+
+    .book-author {
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+    .book-description {
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 0.5rem;
+    }
+</style>
