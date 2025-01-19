@@ -81,15 +81,19 @@ td {
     border-radius: 5px;
 }
 
-.full-width-button:hover {
-    background-color: #222;
-}
+    .full-width-button:hover {
+        background-color: #333333;
+        color: #F495D1;
+    }
 
 .action-buttons {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
+    .action-buttons:hover {
+        color: #F495D1;
+    }
 
 .table-button {
     display: block;
@@ -101,7 +105,7 @@ td {
     border-radius: 5px;
 }
 
-.table-button:hover {
-    background-color: #222;
-
-}
+    .table-button:hover {
+        background-color: #333333;
+        color: #F495D1;
+    }

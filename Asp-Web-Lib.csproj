@@ -365,6 +365,7 @@
     <Content Include="Views\Tags\Edit.cshtml" />
     <Content Include="Views\Tags\Index.cshtml" />
     <Content Include="Views\Books\Tags.cshtml" />
+    <Content Include="Views\ShoppingCartView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202501161835328_Init.resx">
