@@ -2,7 +2,7 @@
 @using Asp_Web_Lib.Resources
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right " }))
     {
         @Html.AntiForgeryToken()
 
@@ -10,7 +10,7 @@
             <li>
                 @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
             </li>
-            <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            <li><a class="navbar-btn btn btn-outline-light me-2 " href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
     }
 }
