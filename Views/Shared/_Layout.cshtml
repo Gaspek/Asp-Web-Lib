@@ -11,60 +11,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Alexandria</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/bundles/modernizr")
+    <title>Including Bootstrap Icons in HTML</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
     @{
         var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
     }
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <!--<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark navbar-custom box-shadow">
         <div class="container">
-            @Html.ActionLink("Alexandria", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a href="@Url.Action("Index", "Home", new { area = "" })" class="logo">
+                <img src="~/Content/logo/Alexandria-logo.png" alt="LOGO" style="height:50px;">
+            </a>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-end">
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">-->
+    @*<a href="/ShoppingCartView" class="icon"><img src="~/Content/Icons/shopping-cart.png" /></a>*@
+
+
+
+
+    @*Wyszukiwarka książek
+        <form class="d-flex" action="@Url.Action("Search", "Home")" method="get">
+            <input class="form-control me-2" type="search" name="query" placeholder="Search..." aria-label="Search">
+            <button class="btn btn-outline-light" type="submit">Search</button>
+        </form>*@
+
+
+    <!--Odnośnik do powiadomień
+    <a class="btn btn-outline-light ms-3" href="@Url.Action("Notifications", "Home")" title="Notifications">
+        <i class="bi bi-bell"></i>
+    </a>
+
+    Odnośnik do koszyka
+    <a class="btn btn-outline-light ms-3" href="@Url.Action("Cart", "Home")" title="Cart">
+        <i class="bi bi-cart"></i>
+    </a>
+        <button class="navbar-icon"><img src="~/Content/Icons/bell.png" /></button>
+        <a href="/Mailbox" class="navbar-icon"><img src="~/Content/Icons/envelope.png" /></a>
+        <a href="/Settings" class="navbar-icon" style="margin-right: 20px;"><img src="~/Content/Icons/settings.png" /></a>
+
+        @Html.Partial("_LoginPartial")-->
+    <!-- Dodanie przełącznika języka -->
+    <!--<ul class="navbar-nav">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="cultureDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                @currentCulture.ToUpper()
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cultureDropdown">
+                <li><a class="dropdown-item" href="@Url.Action("SetLanguage", "Language", new { culture = "pl", returnUrl = Request.Url.PathAndQuery })">Polski</a></li>
+                <li><a class="dropdown-item" href="@Url.Action("SetLanguage", "Language", new { culture = "en", returnUrl = Request.Url.PathAndQuery })">English</a></li>
+            </ul>
+        </li>
+    </ul>-->
+    <!-- Koniec dodawania przełącznika języka -->
+    <!--</div>
+    </div>-->
+    <nav class="navbar navbar-expand-sm navbar-dark navbar-custom box-shadow">
+        <div class="container">
+            <!-- Logo -->
+            <a href="@Url.Action("Index", "Home", new { area = "" })" class="navbar-brand">
+                <img src="~/Content/logo/Alexandria-logo.png" alt="LOGO" style="height:40px;">
+            </a>
+
+            <!-- Przycisk hamburgera dla małych ekranów -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <!-- Elementy nawigacji -->
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-            <li class="nav-item">@Html.ActionLink("Search", "Index", "Search", null, new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
-        </ul>
+                <ul class="navbar-nav ms-auto">
+                    <!-- Powiadomienia -->
+                    <li class="navbar-btn">
+                        <button class="btn btn-outline-light me-2" href="@Url.Action("Notifications", "Home")" title="Notifications">
+                            <i class="bi bi-bell"></i>
+                        </button>
+                    </li>
 
-            @*
-                <!--Wyszukiwarka książek-->
-                <!--<form class="d-flex" action="@Url.Action("Search", "Home")" method="get">
-                    <input class="form-control me-2" type="search" name="query" placeholder="Search..." aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">Search</button>
-                </form>-->
+                    <!-- Koszyk -->
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light me-2" href="@Url.Action("Cart", "Home")" title="Koszyk">
+                            <i class="bi bi-cart"></i>
+                        </button>
+                    </li>
 
-                <!--Odnośnik do powiadomień-->
-                <!--<a class="btn btn-outline-light ms-3" href="@Url.Action("Notifications", "Home")" title="Notifications">
-                    <i class="bi bi-bell"></i>--> <!-- Ikona powiadomień (Bootstrap Icons) -->
-                <!--</a>-->
+                    <!-- Login partial -->
+                    <li class="nav-item">
+                        @Html.Partial("_LoginPartial")
+                    </li>
 
-                <!--Odnośnik do koszyka-->
-                <!--<a class="btn btn-outline-light ms-3" href="@Url.Action("Cart", "Home")" title="Cart">
-                    <i class="bi bi-cart"></i>--> <!-- Ikona koszyka (Bootstrap Icons) -->
-                <!--</a>-->
-                *@
+                   
 
-                @Html.Partial("_LoginPartial")
-
-                <!-- Dodanie przełącznika języka -->
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="cultureDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <!-- Przełącznik języka -->
+                    <li class="nav-item dropdown btn btn-outline-light me-2">
+                        <a class="nav-link dropdown-toggle" href="#" id="cultureDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0px; color: #f5f5f5">
                             @currentCulture.ToUpper()
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cultureDropdown">
-                            <li><a class="dropdown-item" href="@Url.Action("SetLanguage", "Language", new { culture = "pl", returnUrl = Request.Url.PathAndQuery })">Polski</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("SetLanguage", "Language", new { culture = "en", returnUrl = Request.Url.PathAndQuery })">English</a></li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("SetLanguage", "Language", new { culture = "pl", returnUrl = Request.Url.PathAndQuery })">Polski</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("SetLanguage", "Language", new { culture = "en", returnUrl = Request.Url.PathAndQuery })">English</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
-                <!-- Koniec dodawania przełącznika języka -->
             </div>
         </div>
+    </nav>
+
     </nav>
     <div class="container body-content">
         @RenderBody()

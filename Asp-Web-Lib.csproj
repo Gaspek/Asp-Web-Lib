@@ -226,6 +226,10 @@
     <Content Include="App_Data\Database_log.ldf">
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\iw.mdf" />
+    <Content Include="App_Data\iw_log.ldf">
+      <DependentUpon>iw.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\NewDB.mdf" />
     <Content Include="App_Data\NewDB_log.ldf">
       <DependentUpon>NewDB.mdf</DependentUpon>
@@ -246,6 +250,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Icons\shopping-cart.png" />
+    <Content Include="Content\logo\Alexandria-logo.png" />
+    <Content Include="Content\Styles\Shared.css" />
     <Content Include="Content\Icons\shopping-cart.png" />
     <Content Include="Content\selectize.bootstrap3.css" />
     <Content Include="Content\Styles\ModelPanel.css" />
@@ -370,6 +377,7 @@
     <EmbeddedResource Include="Resources\Labels.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
