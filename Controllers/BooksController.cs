@@ -26,7 +26,7 @@ namespace Asp_Web_Lib.Controllers
             var books = db.Books.Include(b => b.Publisher);
             return View(books.ToList());
         }
-
+        [AllowAnonymous]
         // GET: Books/Details/5
         public ActionResult Details(int? id)
         {
@@ -46,6 +46,10 @@ namespace Asp_Web_Lib.Controllers
                 Publisher = book.Publisher.Name,
                 Category = book.Category.Name
             };
+            foreach (var tag in book.Tags)
+            {
+                bookViewModel.Tags.Append(tag.Name);
+            }
             if (book == null)
             {
                 return HttpNotFound();
@@ -64,13 +68,17 @@ namespace Asp_Web_Lib.Controllers
             {
                 Title = book.Title,
                 Authors = string.Join(", ", book.Authors.Select(a => a.FirstName + " " + a.LastName)),
-                Description = book.Description,
+                Description = book.Description.Substring(0,250),
                 CoverImage = book.CoverImage,
                 ISBN = book.ISBN,
                 PublicationYear = book.PublicationYear.ToString("dd-MM-yyyy"),
                 Publisher = book.Publisher.Name,
-                Category = book.Category.Name
+                Category = book.Category.Name,
             };
+            foreach (var tag in book.Tags)
+            {
+                bookViewModel.Tags.Append(tag.Name);
+            }
             if (book == null)
             {
                 return HttpNotFound();

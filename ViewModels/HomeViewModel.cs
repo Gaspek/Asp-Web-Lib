@@ -32,5 +32,6 @@ namespace Asp_Web_Lib.ViewModels
         public uint Rating { get; set; }
         public string PublicationYear { get; set; }
         public string Publisher { get; set; }
+        public List<string> Tags { get; set; }
     }
 }
