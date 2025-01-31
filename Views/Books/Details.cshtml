@@ -11,6 +11,8 @@
 				<p><strong>Wydawca:</strong> @Model.Publisher</p>
 				<p><strong>Gatunek:</strong> @Model.Category</p>
 				<p><strong>ISBN:</strong> @Model.ISBN</p>
+				<p><strong>Tagi:</strong> @(Model.Tags != null ? string.Join(", ", (List<string>)Model.Tags) : "No tags")</p>
+
 			</div>
 			<a href="/" class="back-button">Powrót do listy książek</a>
 		</div>

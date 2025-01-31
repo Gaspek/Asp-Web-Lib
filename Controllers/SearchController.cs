@@ -23,6 +23,7 @@ namespace Asp_Web_Lib.Controllers
         {
             var books = db.Books
                 .Include(b => b.Authors) // Załaduj autorów
+                .Include(b => b.Tags) //Załaduj tagi
                 .OrderBy(b => b.Title)
                 .ToList() // Pobierz dane do pamięci, aby móc użyć `string.Join`
                 .Select(b => new
@@ -33,7 +34,8 @@ namespace Asp_Web_Lib.Controllers
                         : "Brak autora",
                     Title = b.Title,
                     Id = b.Id,
-                    CoverImg = b.CoverImage
+                    CoverImg = b.CoverImage,
+                    Tags = b.Tags.Select(t => t.Name).ToList()
                 })
                 .ToList();
 

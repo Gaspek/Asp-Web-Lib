@@ -1,0 +1,71 @@
+﻿/* Styl dla elementu custom-multiselect */
+.custom-multiselect {
+    position: relative;
+    width: 17.6rem;
+}
+
+/* Styl dla select-box */
+.select-box {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background: white;
+}
+
+/* Styl dla dropdown-container */
+.dropdown-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    max-height: 20rem;
+    overflow: hidden;
+}
+
+/* Styl dla search-box */
+.search-box {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Styl dla search-input */
+.search-input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Styl dla dropdown-options */
+.dropdown-options {
+    max-height: 18rem;
+    overflow-y: auto;
+}
+
+/* Styl dla poszczególnych opcji */
+.option-item {
+    display: block;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.option-item:hover {
+    background-color: #f5f5f5;
+}
+
+.option-item input {
+    margin-right: 8px;
+}
+
+/* Wyświetlanie rozwiniętej listy */
+.custom-multiselect.active .dropdown-container {
+    display: block;
+}

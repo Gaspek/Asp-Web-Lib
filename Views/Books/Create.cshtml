@@ -10,85 +10,194 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Book</h4>
+    <div class="form-container">
+        <h4>Create New Book</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        <div class="form-grid">
+            <!-- Kolumna 1: Podstawowe informacje -->
+            <div class="column">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, new { @class = "control-label label-above" })
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ISBN, new { @class = "control-label label-above" })
+                    @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ISBN, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PublicationYear, new { @class = "control-label label-above" })
+                    @Html.EditorFor(model => model.PublicationYear, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PublicationYear, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CoverImage, new { @class = "control-label label-above" })
+                    @Html.EditorFor(model => model.CoverImage, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CoverImage, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ISBN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ISBN, "", new { @class = "text-danger" })
+            <!-- Kolumna 2: Kategoria, opis i przycisk zapisu -->
+            <div class="column">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryId, "Category", new { @class = "control-label label-above" })
+                    @Html.DropDownList("CategoryId", null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, new { @class = "control-label label-above" })
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control description-box" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group submit-container">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PublicationYear, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PublicationYear, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PublicationYear, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <!-- Kolumna 3: Wydawca, Autorzy oraz Tagi -->
+            <div class="column">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PublisherId, "Publisher", new { @class = "control-label label-above" })
+                    @Html.DropDownList("PublisherId", null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PublisherId, "", new { @class = "text-danger" })
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CoverImage, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CoverImage, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CoverImage, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <!-- Blok: Wybór autorów -->
+                <div class="form-group">
+                    @Html.Label("Authors", new { @class = "control-label label-above" })
+                    <div class="custom-multiselect">
+                        <div class="select-box">
+                            <span class="selected-text">
+                                @("Select authors...")
+                            </span>
+                        </div>
+                        <div class="dropdown-container">
+                            <div class="search-box">
+                                <input type="text" placeholder="Search authors..." class="search-input" id="authorSearch">
+                            </div>
+                            <div class="dropdown-options" id="authorOptions">
+                                @foreach (var author in (IEnumerable<SelectListItem>)ViewBag.SelectedAuthorIds)
+                                {
+                                    <label class="option-item">
+                                        <input type="checkbox"
+                                               name="SelectedAuthorIds"
+                                               value="@author.Value"
+                                               @(author.Selected ? "checked" : "") />
+                                        <span>@author.Text</span>
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ValidationMessage("SelectedAuthorIds", "", new { @class = "text-danger" })
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PublisherId, "Publisher", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("PublisherId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PublisherId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <br />
-        <div class="form-group">
-            @Html.Label("Authors", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.ListBox("SelectedAuthorIds", (MultiSelectList)ViewBag.SelectedAuthorIds, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessage("SelectedAuthorIds", "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <br />
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoryId, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <br />
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <!-- Blok: Wybór tagów -->
+                <div class="form-group">
+                    @Html.Label("Tags", new { @class = "control-label label-above" })
+                    <div class="custom-multiselect">
+                        <div class="select-box">
+                            <span class="selected-text">
+                                @("Select tags...")
+                            </span>
+                        </div>
+                        <div class="dropdown-container">
+                            <div class="search-box">
+                                <input type="text" placeholder="Search tags..." class="search-input" id="tagSearch">
+                            </div>
+                            <div class="dropdown-options" id="tagOptions">
+                                @foreach (var tag in (IEnumerable<SelectListItem>)ViewBag.SelectedTagIds)
+                                {
+                                    <label class="option-item">
+                                        <input type="checkbox"
+                                               name="SelectedTagIds"
+                                               value="@tag.Value"
+                                               @(tag.Selected ? "checked" : "") />
+                                        <span>@tag.Text</span>
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ValidationMessage("SelectedTagIds", "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
     </div>
 }
 
-<div>
+<div class="back-link">
     @Html.ActionLink("Back to List", "Index")
 </div>
-@Styles.Render("~/Content/Styles/ModelPanel.css")
 
+@Scripts.Render("~/Scripts/Custom/customMultiselect.js")
+
+<style>
+    .form-container {
+        font-family: Arial, sans-serif;
+        margin: 5rem auto;
+        padding: 1.5rem;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        color: #333333;
+        width: auto;
+        min-width: 90%;
+        max-width: 100%;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10rem;
+        width: 100%;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .submit-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .back-link {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .description-box {
+        height: 10rem;
+    }
+
+    .label-above {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .btn-default {
+        display: block;
+        text-align: center;
+        width: 80%;
+        margin: 0 2rem 0 1rem;
+        background-color: #c71585;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+        .btn-default:hover {
+            background-color: #333333;
+            color: #F495D1;
+        }
+</style>
+
+@Styles.Render("~/Content/Styles/ModelPanel.css")
+@Styles.Render("~/Content/Styles/customMultiselect.css")

@@ -1,11 +1,5 @@
 ﻿@model Asp_Web_Lib.Models.Book
 
-@{
-    ViewBag.Title = "Edit";
-}
-
-<h2>Edit</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -40,38 +34,92 @@
                 </div>
             </div>
             <div class="column">
-	            <div class="form-group">
-		            @Html.LabelFor(model => model.CategoryId, "Category", new { @class = "control-label label-above" })
-		            @Html.DropDownList("CategoryId", null, new { @class = "form-control" })
-		            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-	            </div>
-	            <div class="form-group">
-		            @Html.LabelFor(model => model.Description, new { @class = "control-label label-above" })
-		            @Html.TextAreaFor(model => model.Description, new { @class = "form-control description-box" })
-		            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-	            </div>
-	            <div class="form-group submit-container">
-		            <input type="submit" value="Save" class="btn btn-default" />
-	            </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryId, "Category", new { @class = "control-label label-above" })
+                    @Html.DropDownList("CategoryId", null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, new { @class = "control-label label-above" })
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control description-box" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group submit-container">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
             </div>
             <div class="column">
-	            <div class="form-group">
-		            @Html.LabelFor(model => model.PublisherId, "Publisher", new { @class = "control-label label-above" })
-		            @Html.DropDownList("PublisherId", null, new { @class = "form-control" })
-		            @Html.ValidationMessageFor(model => model.PublisherId, "", new { @class = "text-danger" })
-	            </div>
-	            <div class="form-group">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PublisherId, "Publisher", new { @class = "control-label label-above" })
+                    @Html.DropDownList("PublisherId", null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PublisherId, "", new { @class = "text-danger" })
+                </div>
 
-		            @Html.Label("Authors", new { @class = "control-label label-above" })
-		            <div class="custom-multiselect">
-			            @Html.ListBox("SelectedAuthorIds", (MultiSelectList)ViewBag.SelectedAuthorIds, new { @class = "form-control" })
-		            </div>
-		            @Html.ValidationMessage("SelectedAuthorIds", "", new { @class = "text-danger" })
-	            </div>
+                <div class="form-group">
+                    @Html.Label("Authors", new { @class = "control-label label-above" })
+                    <div class="custom-multiselect">
+                        <div class="select-box">
+                            <span class="selected-text">
+                                @(Model.Authors.Any()
+						            ? string.Join(", ", Model.Authors.Select(a => a.FirstName + " " + a.LastName))
+						            : "Select authors...")
+                            </span>
+                        </div>
+                        <div class="dropdown-container">
+                            <div class="search-box">
+                                <input type="text" placeholder="Search authors..." class="search-input" id="authorSearch">
+                            </div>
+                            <div class="dropdown-options" id="authorOptions">
+                                @foreach (var author in (IEnumerable<SelectListItem>)ViewBag.SelectedAuthorIds)
+                                {
+                                    <label class="option-item">
+                                        <input type="checkbox"
+                                               name="SelectedAuthorIds"
+                                               value="@author.Value"
+                                               @(author.Selected ? "checked" : "") />
+                                        <span>@author.Text</span>
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ValidationMessage("SelectedAuthorIds", "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Tags", new { @class = "control-label label-above" })
+                    <div class="custom-multiselect">
+                        <div class="select-box">
+                            <span class="selected-text">
+                                @(Model.Tags != null && Model.Tags.Any()
+						            ? string.Join(", ", Model.Tags.Select(t => t.Name))
+						            : "Select tags...")
+                            </span>
+                        </div>
+                        <div class="dropdown-container">
+                            <div class="search-box">
+                                <input type="text" placeholder="Search tags..." class="search-input" id="tagSearch">
+                            </div>
+                            <div class="dropdown-options" id="tagOptions">
+                                @foreach (var tag in (IEnumerable<SelectListItem>)ViewBag.SelectedTagIds)
+                                {
+                                    <label class="option-item">
+                                        <input type="checkbox"
+                                               name="SelectedTagIds"
+                                               value="@tag.Value"
+                                               @(tag.Selected ? "checked" : "") />
+                                        <span>@tag.Text</span>
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ValidationMessage("SelectedTagIds", "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-       
+
     </div>
 }
 
@@ -79,47 +127,13 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-<script>
-	document.addEventListener("DOMContentLoaded", function () {
-		const multiSelect = document.querySelector(".custom-multiselect");
-		const select = multiSelect.querySelector("select");
-		const dropdown = document.createElement("div");
-		dropdown.classList.add("dropdown");
+@Scripts.Render("~/Scripts/Custom/customMultiselect.js")
 
-		Array.from(select.options).forEach(option => {
-			const label = document.createElement("label");
-			const input = document.createElement("input");
-			input.type = "checkbox";
-			input.value = option.value;
-			input.addEventListener("change", () => {
-				if (input.checked) {
-					select.querySelector(`[value='${input.value}']`).selected = true;
-				} else {
-					select.querySelector(`[value='${input.value}']`).selected = false;
-				}
-			});
-			label.appendChild(input);
-			label.appendChild(document.createTextNode(option.text));
-			dropdown.appendChild(label);
-		});
-
-		multiSelect.appendChild(dropdown);
-
-		multiSelect.addEventListener("click", function (event) {
-			multiSelect.classList.toggle("active");
-			event.stopPropagation();
-		});
-
-		document.addEventListener("click", function () {
-			multiSelect.classList.remove("active");
-		});
-	});
-</script>
 
 <style>
     .form-container {
         font-family: Arial, sans-serif;
-        margin: 2rem auto;
+        margin: 5rem auto;
         padding: 1.5rem;
         background-color: #f9f9f9;
         border-radius: 10px;
@@ -132,7 +146,7 @@
 
     .form-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
         gap: 10rem;
         width: 100%;
     }
@@ -147,7 +161,6 @@
         display: flex;
         justify-content: center;
         margin-top: 20px;
-
     }
 
     .back-link {
@@ -164,35 +177,17 @@
         margin-bottom: 5px;
     }
 
-    .custom-multiselect select {
-        display: none;
-    }
-
-    .custom-multiselect {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-    }
-
-        .custom-multiselect::after {
-            content: "▼";
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            pointer-events: none;
-        }
-
     .btn-default {
         display: block;
         text-align: center;
-	    width: 80%;
-	    margin: 0 2rem 0 1rem;
+        width: 80%;
+        margin: 0 2rem 0 1rem;
         background-color: #c71585;
         color: white;
         text-decoration: none;
         border-radius: 5px;
     }
+
         .btn-default:hover {
             background-color: #333333;
             color: #F495D1;
@@ -200,3 +195,5 @@
 
 </style>
 @Styles.Render("~/Content/Styles/ModelPanel.css")
+@Styles.Render("~/Content/Styles/customMultiselect.css")
+

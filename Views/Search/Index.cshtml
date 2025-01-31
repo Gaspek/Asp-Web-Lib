@@ -35,13 +35,14 @@
                     }
 
                     let resultsHtml = filteredBooks.map(book => `
-                        <div class="book" onclick="navigateToBook(${book.Id})" tabindex="0" onkeypress="handleKeyPress(event, ${book.Id})">
-                            <img src="${book.CoverImg}" alt="Okładka książki '${book.Title}' autorstwa ${book.Author}">
-                            <div class="book-title">${book.Title}</div>
-                            <div class="book-author">${book.Author}</div>
-                            <div class="book-description">ISBN: ${book.ISBN || "Brak ISBN"}</div>
-                        </div>
-                    `).join('');
+                            <div class="book" onclick="navigateToBook(${book.Id})" tabindex="0" onkeypress="handleKeyPress(event, ${book.Id})">
+                                <img src="${book.CoverImg}" alt="Okładka książki '${book.Title}' autorstwa ${book.Author}">
+                                <div class="book-title">${book.Title}</div>
+                                <div class="book-author">${book.Author}</div>
+                                <div class="book-tags">${book.Tags && book.Tags.length > 0 ? book.Tags.join(", ") : ""}</div>
+                                <div class="book-description">ISBN: ${book.ISBN || "Brak ISBN"}</div>
+                            </div>
+                        `).join('');
 
                     document.getElementById('searchResults').innerHTML = resultsHtml;
                 },
@@ -60,7 +61,6 @@
 
             for (let i = 0; i < terms.length; i++) {
                 let term = terms[i].replace(/"/g, '').toLowerCase();
-
                 if (term === "||") {
                     isOrSearch = true;
                 } else if (term === "&&") {
@@ -76,13 +76,15 @@
                 let title = book.Title.toLowerCase();
                 let author = book.Author.toLowerCase();
                 let isbn = book.ISBN.toLowerCase();
+                // Łączymy tagi (jeśli są) w jeden ciąg znaków
+                let tags = (book.Tags || []).join(" ").toLowerCase();
 
                 let matchesInclude = includeTerms.length === 0 ||
                     (isOrSearch
-                        ? includeTerms.some(term => title.includes(term) || author.includes(term) || isbn.includes(term))
-                        : includeTerms.every(term => title.includes(term) || author.includes(term) || isbn.includes(term)));
+                        ? includeTerms.some(term => title.includes(term) || author.includes(term) || isbn.includes(term) || tags.includes(term))
+                        : includeTerms.every(term => title.includes(term) || author.includes(term) || isbn.includes(term) || tags.includes(term)));
 
-                let matchesExclude = excludeTerms.some(term => title.includes(term) || author.includes(term) || isbn.includes(term));
+                let matchesExclude = excludeTerms.some(term => title.includes(term) || author.includes(term) || isbn.includes(term) || tags.includes(term));
 
                 return matchesInclude && !matchesExclude;
             });
@@ -98,8 +100,6 @@
             }
         }
     </script>
-
-
 }
 
 @Styles.Render("~/Content/selectize.bootstrap3.css")
@@ -175,6 +175,12 @@
 
     .book-description {
         font-size: 0.85rem;
+        color: #888;
+        margin-top: 0.5rem;
+    }
+
+    .book-tags {
+        font-size: 0.8rem;
         color: #666;
         margin-top: 0.5rem;
     }

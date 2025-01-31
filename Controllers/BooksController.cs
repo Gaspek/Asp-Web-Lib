@@ -35,6 +35,10 @@ namespace Asp_Web_Lib.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Book book = db.Books.Find(id);
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
             var bookViewModel = new BookViewModel()
             {
                 Title = book.Title,
@@ -46,42 +50,10 @@ namespace Asp_Web_Lib.Controllers
                 Publisher = book.Publisher.Name,
                 Category = book.Category.Name
             };
-            foreach (var tag in book.Tags)
+            bookViewModel.Tags = new List<string>();
+            foreach (var tag in book.Tags.Select(a => a.Name))
             {
-                bookViewModel.Tags.Append(tag.Name);
-            }
-            if (book == null)
-            {
-                return HttpNotFound();
-            }
-            return View(bookViewModel);
-        }
-        // GET: Books/Tags/5
-        public ActionResult Tags(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Book book = db.Books.Find(id);
-            var bookViewModel = new BookViewModel()
-            {
-                Title = book.Title,
-                Authors = string.Join(", ", book.Authors.Select(a => a.FirstName + " " + a.LastName)),
-                Description = book.Description.Substring(0,250),
-                CoverImage = book.CoverImage,
-                ISBN = book.ISBN,
-                PublicationYear = book.PublicationYear.ToString("dd-MM-yyyy"),
-                Publisher = book.Publisher.Name,
-                Category = book.Category.Name,
-            };
-            foreach (var tag in book.Tags)
-            {
-                bookViewModel.Tags.Append(tag.Name);
-            }
-            if (book == null)
-            {
-                return HttpNotFound();
+                bookViewModel.Tags.Add(tag);
             }
             return View(bookViewModel);
         }
@@ -89,19 +61,28 @@ namespace Asp_Web_Lib.Controllers
         // GET: Books/Create
         public ActionResult Create()
         {
+            Book book = new Book();
+
             ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name");
-            var authors = db.Authors.Select(a => new
-            {
-                Id = a.Id,
-                FullName = a.FirstName + " " + a.LastName
-            }).ToList();
-            ViewBag.SelectedAuthorIds = new MultiSelectList(authors, "Id", "FullName");
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
-            var category = db.Categories.Select(a => new
+
+            var allAuthors = db.Authors.ToList();
+            var selectedAuthorIds = allAuthors.Select(a => new SelectListItem
             {
-                Id = a.Id,
-                Name = a.Name
-            }).ToList().OrderBy(a => a.Name);
+                Value = a.Id.ToString(),
+                Text = a.FirstName + " " + a.LastName,
+                Selected = false
+            }).OrderBy(a => a.Text).ToList();
+            ViewBag.SelectedAuthorIds = selectedAuthorIds;
+
+            var allTags = db.Tags.ToList();
+            var selectedTagIds = allTags.Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Name,
+                Selected = false
+            }).OrderBy(a => a.Text).ToList();
+            ViewBag.SelectedTagIds = selectedTagIds;
             return View();
         }
 
@@ -110,7 +91,7 @@ namespace Asp_Web_Lib.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,ISBN,PublicationYear,CoverImage,PublisherId,CategoryId")] Book book, int[] SelectedAuthorIds)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,ISBN,PublicationYear,CoverImage,PublisherId,CategoryId")] Book book, int[] SelectedAuthorIds, int[] SelectedTagIds)
         {
             if (db.Books.Any(b => b.Title.ToLower().Trim() == book.Title.ToLower().Trim()))
             {
@@ -134,53 +115,89 @@ namespace Asp_Web_Lib.Controllers
                         }
                     }
                 }
+
+                if (SelectedTagIds != null)
+                {
+                    book.Tags = new List<Tag>();
+                    foreach (var tagId in SelectedTagIds)
+                    {
+                        var tag = db.Tags.Find(tagId);
+                        if (tag != null)
+                        {
+                            book.Tags.Add(tag);
+                        }
+                    }
+                }
+
                 db.Books.Add(book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name", book.PublisherId);
-            var authors = db.Authors.Select(a => new
-            {
-                Id = a.Id,
-                FullName = a.FirstName + " " + a.LastName
-            }).ToList();
-            ViewBag.SelectedAuthorIds = new MultiSelectList(authors, "Id", "FullName", SelectedAuthorIds);
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
-            var category = db.Categories.Select(a => new
+
+            var allAuthorsReload = db.Authors.ToList();
+            var selectedAuthorIdsReload = allAuthorsReload.Select(a => new SelectListItem
             {
-                Id = a.Id,
-                Name = a.Name
-            }).ToList().OrderBy(a => a.Name);
+                Value = a.Id.ToString(),
+                Text = a.FirstName + " " + a.LastName,
+                Selected = SelectedAuthorIds != null && SelectedAuthorIds.Contains(a.Id)
+            }).ToList();
+            ViewBag.SelectedAuthorIds = selectedAuthorIdsReload;
+
+            var allTagsReload = db.Tags.ToList();
+            var selectedTagIdsReload = allTagsReload.Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Name,
+                Selected = SelectedTagIds != null && SelectedTagIds.Contains(t.Id)
+            }).ToList();
+            ViewBag.SelectedTagIds = selectedTagIdsReload;
+
             return View(book);
         }
 
         // GET: Books/Edit/5
         public ActionResult Edit(int? id)
         {
-            ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name");
-            var authors = db.Authors.Select(a => new
-            {
-                Id = a.Id,
-                FullName = a.FirstName + " " + a.LastName
-            }).ToList();
-            ViewBag.SelectedAuthorIds = new MultiSelectList(authors, "Id", "FullName");
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
-            var category = db.Categories.Select(a => new
-            {
-                Id = a.Id,
-                Name = a.Name
-            }).ToList().OrderBy(a => a.Name);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
+
+            Book book = db.Books
+                .Include(b => b.Authors)
+                .Include(b => b.Publisher)
+                .Include(b => b.Category)
+                .FirstOrDefault(b => b.Id == id);
+
             if (book == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name", book.PublisherId);
+
+            ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name");
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
+
+            var allAuthors = db.Authors.ToList();
+            var selectedAuthorIds = allAuthors.Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.FirstName + " " + a.LastName,
+                Selected = book.Authors.Any(ba => ba.Id == a.Id)
+            }).ToList();
+            ViewBag.SelectedAuthorIds = selectedAuthorIds;
+
+            var allTags = db.Tags.ToList();
+            var selectedTagIds = allTags.Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Name,
+                Selected = book.Tags.Any(bt => bt.Id == t.Id)
+            }).ToList();
+            ViewBag.SelectedTagIds = selectedTagIds;
+
             return View(book);
         }
 
@@ -189,7 +206,7 @@ namespace Asp_Web_Lib.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Description,ISBN,PublicationYear,CoverImage,PublisherId,CategoryId")] Book book, int[] SelectedAuthorIds)
+        public ActionResult Edit([Bind(Include = "Id,Title,Description,ISBN,PublicationYear,CoverImage,PublisherId,CategoryId")] Book book, int[] SelectedAuthorIds, int[] SelectedTagIds)
         {
             // Pobranie książki i sprawdzenie tytułu oraz ISBN
             var existingBooks = db.Books
@@ -211,7 +228,10 @@ namespace Asp_Web_Lib.Controllers
             if (ModelState.IsValid)
             {
                 // Pobranie książki do aktualizacji
-                var bookToUpdate = db.Books.Find(book.Id);
+                var bookToUpdate = db.Books
+                    .Include(b => b.Authors)
+                    .Include(b => b.Tags)
+                    .FirstOrDefault(b => b.Id == book.Id);
                 if (bookToUpdate == null)
                 {
                     return HttpNotFound();
@@ -222,10 +242,13 @@ namespace Asp_Web_Lib.Controllers
                 bookToUpdate.Description = book.Description;
                 bookToUpdate.ISBN = book.ISBN;
                 bookToUpdate.PublicationYear = book.PublicationYear;
+                bookToUpdate.CoverImage = book.CoverImage;
                 bookToUpdate.PublisherId = book.PublisherId;
+                bookToUpdate.CategoryId = book.CategoryId;
+
+                bookToUpdate.Authors.Clear();
                 if (SelectedAuthorIds != null)
                 {
-                    bookToUpdate.Authors = new List<Author>();
                     foreach (var authorId in SelectedAuthorIds)
                     {
                         var author = db.Authors.Find(authorId);
@@ -236,11 +259,25 @@ namespace Asp_Web_Lib.Controllers
                     }
                 }
 
-                db.Entry(bookToUpdate).CurrentValues.SetValues(book);
+                bookToUpdate.Tags.Clear();
+                if (SelectedTagIds != null)
+                {
+                    foreach (var tagId in SelectedTagIds)
+                    {
+                        var tag = db.Tags.Find(tagId);
+                        if (tag != null)
+                        {
+                            bookToUpdate.Tags.Add(tag);
+                        }
+                    }
+                }
+
+                db.Entry(bookToUpdate).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.PublisherId = new SelectList(db.Publishers, "Id", "Name", book.PublisherId);
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", book.CategoryId);
             return View(book);
         }
 
