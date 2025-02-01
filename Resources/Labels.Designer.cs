@@ -70,6 +70,15 @@ namespace Asp_Web_Lib.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Wyloguj się.
+        /// </summary>
+        public static string Log_off {
+            get {
+                return ResourceManager.GetString("Log_off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Zaloguj się.
         /// </summary>
         public static string Login {

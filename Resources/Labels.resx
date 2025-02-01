@@ -123,6 +123,9 @@
   <data name="Login" xml:space="preserve">
     <value>Zaloguj się</value>
   </data>
+  <data name="Log_off" xml:space="preserve">
+    <value>Wyloguj się</value>
+  </data>
   <data name="Manage_authors" xml:space="preserve">
     <value>Zarządzaj autorami</value>
   </data>
