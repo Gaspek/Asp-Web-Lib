@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Change_password" xml:space="preserve">
+    <value>Change your password</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
@@ -126,11 +129,17 @@
   <data name="Manage_books" xml:space="preserve">
     <value>Manage books</value>
   </data>
+  <data name="Manage_categories" xml:space="preserve">
+    <value>Manage categories</value>
+  </data>
   <data name="Manage_permissions" xml:space="preserve">
     <value>Manage permissions</value>
   </data>
   <data name="Manage_publishers" xml:space="preserve">
     <value>Manage publishers</value>
+  </data>
+  <data name="Manage_tags" xml:space="preserve">
+    <value>Manage tags</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
