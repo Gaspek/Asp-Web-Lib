@@ -177,6 +177,7 @@
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
+    <Compile Include="Controllers\WorkerUserController.cs" />
     <Compile Include="Filters\CultureAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -411,6 +412,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Language\" />
+    <Folder Include="Views\WorkerUser\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
