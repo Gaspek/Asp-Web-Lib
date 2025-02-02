@@ -11,13 +11,25 @@
         <dl class="dl-horizontal">
             @if (User.IsInRole("Admin"))
             {
-                <dt>Panel adminisracyjny:</dt>
+                <dt>Panel administracyjny użytkowników</dt>
                 <dd>[ @Html.ActionLink(@Labels.Manage_permissions, "Index", "Admin") ]</dd>
+            }
+
+        </dl>
+    </div>
+    <div>
+        <dl class="dl-horizontal">
+            @if (User.IsInRole("Admin") || User.IsInRole("Worker"))
+            {
+                <dt>Panel administracyjny biblioteki:</dt>
+                @*<dd>[ @Html.ActionLink(@Labels.Manage_permissions, "Index", "Admin") ]</dd>*@
                 <dd>[ @Html.ActionLink(@Labels.Manage_books, "Index", "Books") ]</dd>
                 <dd>[ @Html.ActionLink(@Labels.Manage_publishers, "Index", "Publishers") ]</dd>
                 <dd>[ @Html.ActionLink(@Labels.Manage_authors, "Index", "Authors") ]</dd>
-
+                <dd>[ @Html.ActionLink(@Labels.Manage_categories, "Index", "Categories") ]</dd>
+                <dd>[ @Html.ActionLink(@Labels.Manage_tags, "Index", "Tags") ]</dd>
             }
+
         </dl>
     </div>
     <p class="text-success">@ViewBag.StatusMessage</p>
