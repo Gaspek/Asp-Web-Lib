@@ -1,22 +1,40 @@
 ﻿@using Asp_Web_Lib.Models
-<main>
-	<div class="book-details">
-		<img class="book-cover" src="@Model.CoverImage" alt="Okładka książki '@Model.Title' autorstwa @Model.Authors">
-		<div class="book-info">
-			<h1 class="book-title">@Model.Title</h1>
-			<h2 class="book-author">Autor: @Model.Authors</h2>
-			<p class="book-description">@Model.Description</p>
-			<div class="book-meta">
-				<p><strong>Data wydania:</strong> @Model.PublicationYear</p>
-				<p><strong>Wydawca:</strong> @Model.Publisher</p>
-				<p><strong>Gatunek:</strong> @Model.Category</p>
-				<p><strong>ISBN:</strong> @Model.ISBN</p>
-				<p><strong>Tagi:</strong> @(Model.Tags != null ? string.Join(", ", (List<string>)Model.Tags) : "No tags")</p>
+@model Asp_Web_Lib.ViewModels.BookViewModel
 
-			</div>
-			<a href="/" class="back-button">Powrót do listy książek</a>
-		</div>
-	</div>
+<main>
+    <div class="book-details">
+        <img class="book-cover" src="@Model.CoverImage" alt="Okładka książki '@Model.Title' autorstwa @Model.Authors">
+        <div class="book-info">
+            <h1 class="book-title">@Model.Title</h1>
+            <h2 class="book-author">Autor: @Model.Authors</h2>
+            <p class="book-description">@Model.Description</p>
+            <div class="book-meta">
+                <p><strong>Data wydania:</strong> @Model.PublicationYear</p>
+                <p><strong>Wydawca:</strong> @Model.Publisher</p>
+                <p><strong>Gatunek:</strong> @Model.Category</p>
+                <p><strong>ISBN:</strong> @Model.ISBN</p>
+                <p><strong>Tagi:</strong> @(Model.Tags != null ? string.Join(", ", (List<string>)Model.Tags) : "No tags")</p>
+
+            </div>
+            <a href="/"><button class="back-button">Powrót do listy książek</button></a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @* Jeśli użytkownik jest zalogowany, wyświetlamy aktywny przycisk w formularzu *@
+                <form action="@Url.Action("Add", "Cart")" method="post" style="display: inline;">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="bookId" value="@Model.BookId" />
+                    <button type="submit" class="add-cart-button">Dodaj do koszyka</button>
+                </form>
+            }
+            else
+            {
+                @* Użytkownik nie jest zalogowany – przycisk jest nieaktywny *@
+                <button class="add-cart-button" disabled title="Musisz być zalogowany, aby dodać książkę do koszyka">
+                    Dodaj do koszyka
+                </button>
+            }
+        </div>
+    </div>
 </main>
 
 <style>
@@ -80,7 +98,26 @@
         transition: background-color 0.2s;
     }
 
-    .back-button:hover {
-        background-color: #222;
+        .back-button:hover {
+            background-color: #222;
+        }
+
+    .add-cart-button {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.8rem 1rem;
+        background-color: #324ab3;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.2s;
     }
+
+        .add-cart-button:hover {
+            background-color: #222;
+        }
+
+            .add-cart-button:hover:not([disabled]) {
+                background-color: #222;
+            }
 </style>
