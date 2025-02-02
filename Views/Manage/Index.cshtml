@@ -11,8 +11,9 @@
         <dl class="dl-horizontal">
             @if (User.IsInRole("Admin"))
             {
-                <dt>Panel administracyjny użytkowników</dt>
+                <dt>Panel administracyjny </dt>
                 <dd>[ @Html.ActionLink(@Labels.Manage_permissions, "Index", "Admin") ]</dd>
+                <dd>[ @Html.ActionLink("Ustawienia wypożyczeń", "Index", "Admin") ]</dd>
             }
 
         </dl>
@@ -22,7 +23,6 @@
             @if (User.IsInRole("Admin") || User.IsInRole("Worker"))
             {
                 <dt>Panel administracyjny biblioteki:</dt>
-                @*<dd>[ @Html.ActionLink(@Labels.Manage_permissions, "Index", "Admin") ]</dd>*@
                 <dd>[ @Html.ActionLink(@Labels.Manage_books, "Index", "Books") ]</dd>
                 <dd>[ @Html.ActionLink(@Labels.Manage_publishers, "Index", "Publishers") ]</dd>
                 <dd>[ @Html.ActionLink(@Labels.Manage_authors, "Index", "Authors") ]</dd>
