@@ -41,6 +41,7 @@ namespace Asp_Web_Lib.Controllers
             }
             var bookViewModel = new BookViewModel()
             {
+                BookId = book.Id,
                 Title = book.Title,
                 Authors = string.Join(", ", book.Authors.Select(a => a.FirstName + " " + a.LastName)),
                 Description = book.Description,

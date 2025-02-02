@@ -100,9 +100,11 @@
 
                     <!-- Koszyk -->
                     <li class="navbar-btn">
-                        <button class="btn btn-outline-light me-2" href="@Url.Action("Cart", "Home")" title="Koszyk">
-                            <i class="bi bi-cart"></i>
-                        </button>
+                        <a href="@Url.Action("Index", "Cart")">
+                            <button class="btn btn-outline-light me-2" title="Koszyk">
+                                <i class="bi bi-cart"></i>
+                            </button>
+                        </a>
                     </li>
 
                     <!-- Login partial -->
