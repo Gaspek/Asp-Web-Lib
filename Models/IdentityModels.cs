@@ -76,5 +76,7 @@ namespace Asp_Web_Lib.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Asp_Web_Lib.Models.Limits> Limits { get; set; }
     }
 }

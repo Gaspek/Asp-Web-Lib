@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Asp_Web_Lib.Models.Limits>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxBorrowedBooks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxWaitingBooks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxExtensionNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExtensionDays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LoanAmount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxBorrowedBooks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxWaitingBooks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxExtensionNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExtensionDays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoanAmount)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdLimits }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdLimits }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdLimits })
+        </td>
+    </tr>
+}
+
+</table>

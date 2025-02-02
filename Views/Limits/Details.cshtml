@@ -1,0 +1,58 @@
+﻿@model Asp_Web_Lib.Models.Limits
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Limits</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxBorrowedBooks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxBorrowedBooks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxWaitingBooks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxWaitingBooks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxExtensionNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxExtensionNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtensionDays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtensionDays)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoanAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoanAmount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdLimits }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

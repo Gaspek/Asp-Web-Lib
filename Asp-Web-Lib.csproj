@@ -170,6 +170,7 @@
     <Compile Include="Controllers\CopiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Controllers\LimitsController.cs" />
     <Compile Include="Controllers\LoansController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
@@ -376,6 +377,11 @@
     <Content Include="Views\Tags\Index.cshtml" />
     <Content Include="Views\ShoppingCartView.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Limits\Create.cshtml" />
+    <Content Include="Views\Limits\Delete.cshtml" />
+    <Content Include="Views\Limits\Details.cshtml" />
+    <Content Include="Views\Limits\Edit.cshtml" />
+    <Content Include="Views\Limits\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202501161835328_Init.resx">
