@@ -37,8 +37,8 @@
                             <td>
                                 @if (item.LoanStatus == Status.CopyStatus.Borrowed)
                                 {
-                                    <span>Książka znajduje się w twoim posiadaniu</span><br />
-                                        <span>Termin zwrotu: @item.DueDate.ToString("dd-MM-yyyy")</span>
+                                    <span>Książka znajduje się w posiadaniu użytkownika</span><br />
+                                    <span>Termin zwrotu: @item.DueDate.ToString("dd-MM-yyyy")</span>
                                 }
                                 else if (item.LoanStatus == Status.CopyStatus.Returned)
                                 {
@@ -48,15 +48,15 @@
                                 }
                                 else
                                 {
-                                    <span>Oczekiwania na dostępność książki</span>
+                                    <span>Błędna wartość rezerwacji</span>
                                 }
                             </td>
                             <td class="link-container">
                                 <div class="action-buttons">
-                                    <form action="@Url.Action("AskForExtension", "Loans")" method="post" class="">
+                                    <form action="@Url.Action("Return", "Loans")" method="post" class="">
                                         @Html.AntiForgeryToken()
                                         <input type="hidden" name="loanId" value="@item.LoanId" />
-                                        <button type="submit" class="table-button">Poproś o przedłużenie</button>
+                                        <button type="submit" class="table-button">Książka została zwrócona</button>
                                     </form>
                                 </div>
                             </td>

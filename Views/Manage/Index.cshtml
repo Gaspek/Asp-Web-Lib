@@ -26,8 +26,10 @@
         <dl class="dl-horizontal">
             @if (User.IsInRole("Admin") || User.IsInRole("Worker"))
             {
-                <dt>Panel administracyjny biblioteki:</dt>
-                <dd>[ @Html.ActionLink(@Labels.Manage_books, "Index", "Books") ]</dd>
+	            <dt>Panel administracyjny biblioteki:</dt>
+	            <dd>[ @Html.ActionLink("Zarządzaj rezerwacjami", "Manage", "Reservations") ]</dd> //DODAĆ LABEL
+	            <dd>[ @Html.ActionLink("Zarządzaj wypożyczeniami", "Manage", "Loans") ]</dd> //DODAĆ LABEL
+	            <dd>[ @Html.ActionLink(@Labels.Manage_books, "Index", "Books") ]</dd>
                 <dd>[ @Html.ActionLink(@Labels.Manage_publishers, "Index", "Publishers") ]</dd>
                 <dd>[ @Html.ActionLink(@Labels.Manage_authors, "Index", "Authors") ]</dd>
                 <dd>[ @Html.ActionLink(@Labels.Manage_categories, "Index", "Categories") ]</dd>

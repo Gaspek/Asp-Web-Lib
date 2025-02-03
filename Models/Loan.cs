@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -26,5 +27,7 @@ namespace Asp_Web_Lib.Models
         [Required]
         public DateTimeOffset DueDate { get; set; }
         public DateTimeOffset? ReturnDate { get; set; }
+        [DefaultValue(false)]
+        public bool IsHistory { get; set; }
     }
 }

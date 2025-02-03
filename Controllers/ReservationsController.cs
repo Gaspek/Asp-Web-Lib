@@ -182,6 +182,14 @@ namespace Asp_Web_Lib.Controllers
                 DueDate = DateTimeOffset.Now.AddDays(days),
             };
 
+            var copy = db.Copies.FirstOrDefault(c => c.Id == reservation.CopyId);
+            if (copy == null)
+            {
+                return HttpNotFound("Błąd przy modyfikacji kopii");
+            }
+            copy.Status = Status.CopyStatus.Borrowed;
+
+            db.Entry(copy).State = EntityState.Modified;
             db.Reservations.Remove(reservation);
             db.Loans.Add(loan);
             db.SaveChanges();

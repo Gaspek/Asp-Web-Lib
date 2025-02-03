@@ -8,8 +8,10 @@ using System.Web;
 using System.Web.Mvc;
 using Asp_Web_Lib.Filters;
 using Asp_Web_Lib.Models;
+using Asp_Web_Lib.Services;
 using Asp_Web_Lib.ViewModels;
 using Microsoft.AspNet.Identity;
+using static Asp_Web_Lib.MvcApplication;
 
 namespace Asp_Web_Lib.Controllers
 {
@@ -51,107 +53,59 @@ namespace Asp_Web_Lib.Controllers
             return View(viewModel);
         }
 
-        // GET: Loans/Details/5
-        public ActionResult Details(int? id)
+        // GET: Loans/Manage
+        [Authorize(Roles = "Worker,Admin")]
+        public ActionResult Manage()
         {
-            if (id == null)
+            var loans = db.Loans
+                .Include(r => r.Copy.Book)
+                .Include(r => r.User)
+                .Where(r => r.ReturnDate.HasValue == false);
+            var viewModel = new LoanViewModel();
+
+            foreach (var loan in loans.ToList())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var viewItem = new LoanItemViewModel()
+                {
+                    BookId = loan.Copy.BookId,
+                    Title = loan.Copy.Book.Title,
+                    CoverImage = loan.Copy.Book.CoverImage,
+                    LoanId = loan.Id,
+                    DueDate = loan.DueDate,
+                    LoanDate = loan.LoanDate,
+                    LoanStatus = Status.CopyStatus.Borrowed
+                };
+                viewModel.Items.Add(viewItem);
             }
-            Loan loan = db.Loans.Find(id);
-            if (loan == null)
-            {
-                return HttpNotFound();
-            }
-            return View(loan);
+
+            return View(viewModel);
         }
 
-        // GET: Loans/Create
-        public ActionResult Create()
-        {
-            ViewBag.CopyId = new SelectList(db.Copies, "Id", "ShelfLocation");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
-            return View();
-        }
-
-        // POST: Loans/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST:Loans/Return/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CopyId,UserId,LoanDate,DueDate,ReturnDate")] Loan loan)
+        public ActionResult Return(int loanId)
         {
-            if (ModelState.IsValid)
-            {
-                db.Loans.Add(loan);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.CopyId = new SelectList(db.Copies, "Id", "ShelfLocation", loan.CopyId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", loan.UserId);
-            return View(loan);
-        }
-
-        // GET: Loans/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Loan loan = db.Loans.Find(id);
+            var loan = db.Loans.Include(c => c.Copy).Include(c => c.User).FirstOrDefault(c => c.Id == loanId);
             if (loan == null)
             {
-                return HttpNotFound();
+                return HttpNotFound("Błąd przy zwrocie książki");
             }
-            ViewBag.CopyId = new SelectList(db.Copies, "Id", "ShelfLocation", loan.CopyId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", loan.UserId);
-            return View(loan);
-        }
 
-        // POST: Loans/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CopyId,UserId,LoanDate,DueDate,ReturnDate")] Loan loan)
-        {
-            if (ModelState.IsValid)
+            var userId = loan.UserId;
+            if (userId == null)
             {
-                db.Entry(loan).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return HttpNotFound("Błąd wczytywania użytkownika dla książki");
             }
-            ViewBag.CopyId = new SelectList(db.Copies, "Id", "ShelfLocation", loan.CopyId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", loan.UserId);
-            return View(loan);
-        }
 
-        // GET: Loans/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Loan loan = db.Loans.Find(id);
-            if (loan == null)
-            {
-                return HttpNotFound();
-            }
-            return View(loan);
-        }
+            loan.ReturnDate = DateTimeOffset.Now;
+            loan.IsHistory = true;
 
-        // POST: Loans/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Loan loan = db.Loans.Find(id);
-            db.Loans.Remove(loan);
+            _bookService.ReturnCopy(loan.Copy.Id);
+
+            db.Entry(loan).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Manage");
         }
 
         protected override void Dispose(bool disposing)
