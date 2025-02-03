@@ -41,7 +41,7 @@
 		                            if (item.AcceptanceDate.HasValue)
 		                            {
 			                            var dueDate = item.AcceptanceDate.Value.AddDays(30);
-			                            <span>Masz czas na odbiór do: @dueDate.ToString("yyyy-MM-dd")</span>
+			                            <span>Masz czas na odbiór do: @dueDate.ToString("dd-MM-yyyy")</span>
 		                            }
 		                            else
 		                            {

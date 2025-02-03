@@ -8,10 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using Asp_Web_Lib.Filters;
 using Asp_Web_Lib.Models;
+using Asp_Web_Lib.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace Asp_Web_Lib.Controllers
 {
-[Authorize(Roles = "Admin")]
     [Culture]
     public class LoansController : Controller
     {
@@ -20,8 +21,34 @@ namespace Asp_Web_Lib.Controllers
         // GET: Loans
         public ActionResult Index()
         {
-            var loans = db.Loans.Include(l => l.Copy).Include(l => l.User);
-            return View(loans.ToList());
+            var userId = User.Identity.GetUserId();
+            var loans = db.Loans
+                .Include(r => r.Copy.Book)
+                .Include(r => r.User)
+                .Where(r => r.UserId == userId);
+            var viewModel = new LoanViewModel();
+
+            foreach (var loan in loans.ToList())
+            {
+                var viewItem = new LoanItemViewModel()
+                {
+                    BookId = loan.Copy.BookId,
+                    Title = loan.Copy.Book.Title,
+                    CoverImage = loan.Copy.Book.CoverImage,
+                    LoanId = loan.Id,
+                    DueDate = loan.DueDate,
+                    LoanDate = loan.LoanDate,
+                    LoanStatus = Status.CopyStatus.Borrowed
+                };
+                if (loan.ReturnDate.HasValue)
+                {
+                    viewItem.ReturnDate = loan.ReturnDate;
+                    viewItem.LoanStatus = Status.CopyStatus.Returned;
+                }
+                viewModel.Items.Add(viewItem);
+            }
+
+            return View(viewModel);
         }
 
         // GET: Loans/Details/5

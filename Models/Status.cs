@@ -13,7 +13,8 @@ namespace Asp_Web_Lib.Models
             ReadyForPickUp,
             Borrowed,
             InQueue,
-            Reserved
+            Reserved,
+            Returned
         }
     }
 }

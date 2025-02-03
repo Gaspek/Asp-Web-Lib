@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -11,10 +12,12 @@ using Asp_Web_Lib.Models;
 using Asp_Web_Lib.Services;
 using Asp_Web_Lib.ViewModels;
 using Microsoft.AspNet.Identity;
+using static Asp_Web_Lib.MvcApplication;
 
 namespace Asp_Web_Lib.Controllers
 {
     [Culture]
+    [Authorize]
     public class ReservationsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -54,17 +57,23 @@ namespace Asp_Web_Lib.Controllers
         [HttpPost]
         public ActionResult Remove(int bookId, int reservationId)
         {
-            var userId = User.Identity.GetUserId();
             var reservation = db.Reservations.Include(c => c.Copy).Include(c => c.User).FirstOrDefault(c => c.Id == reservationId);
             if (reservation == null)
             {
                 return HttpNotFound("Błąd przy usuwaniu rezerwacji");
             }
 
+            var userId = reservation.UserId;
+            if (userId == null)
+            {
+                db.Reservations.Remove(reservation);
+                db.SaveChanges();
+                return HttpNotFound("Błąd wczytywania użytkownika");
+            }
+
             if (reservation.Status == Status.CopyStatus.Reserved || reservation.Status == Status.CopyStatus.ReadyForPickUp)
             {
-                var bookService = new BookService(db);
-                MvcApplication._bookService.ReturnCopy(reservation.Copy.Id);
+                _bookService.ReturnCopy(reservation.Copy.Id);
             }
             else
             {
@@ -88,108 +97,99 @@ namespace Asp_Web_Lib.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Reservations/Details/5
-        public ActionResult Details(int? id)
+        // GET: Reservations/Manage
+        [Authorize(Roles = "Worker,Admin")]
+        public ActionResult Manage()
         {
-            if (id == null)
+            var reservations = db.Reservations
+                .Include(r => r.Copy)
+                .Include(r => r.User)
+                .Include(r => r.Book)
+                .Where(r => r.Status == Status.CopyStatus.Reserved || r.Status == Status.CopyStatus.ReadyForPickUp);
+            var viewModel = new ReservationViewModel();
+
+            foreach (var reservation in reservations.ToList())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var viewItem = new ReservationItemViewModel()
+                {
+                    BookId = reservation.Book.Id,
+                    Title = reservation.Book.Title,
+                    CoverImage = reservation.Book.CoverImage,
+                    ReservationId = reservation.Id,
+                    ReservationStatus = reservation.Status,
+                    UserId = reservation.UserId,
+                    UserName = reservation.User.UserName
+                };
+                if (reservation.Status == Status.CopyStatus.ReadyForPickUp)
+                {
+                    viewItem.AcceptanceDate = reservation.AcceptanceDate;
+                }
+                viewModel.Items.Add(viewItem);
             }
-            Reservation reservation = db.Reservations.Find(id);
-            if (reservation == null)
-            {
-                return HttpNotFound();
-            }
-            return View(reservation);
+
+            return View(viewModel);
         }
 
-        // GET: Reservations/Create
-        public ActionResult Create()
-        {
-            ViewBag.CopyId = new SelectList(db.Copies, "Id", "ShelfLocation");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
-            return View();
-        }
-
-        // POST: Reservations/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Reservation/Accept/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CopyId,UserId,ReservationDate,Status")] Reservation reservation)
+        [Authorize(Roles = "Worker,Admin")]
+        public ActionResult Accept(int reservationId)
         {
-            if (ModelState.IsValid)
-            {
-                db.Reservations.Add(reservation);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.CopyId = new SelectList(db.Copies, "Id", "ShelfLocation", reservation.CopyId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", reservation.UserId);
-            return View(reservation);
-        }
-
-        // GET: Reservations/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Reservation reservation = db.Reservations.Find(id);
+            var reservation = db.Reservations.Include(c => c.Copy).Include(c => c.User).FirstOrDefault(c => c.Id == reservationId);
             if (reservation == null)
             {
-                return HttpNotFound();
+                return HttpNotFound("Błąd 404 nie znaleziono rezerwacji");
             }
-            ViewBag.CopyId = new SelectList(db.Copies, "Id", "ShelfLocation", reservation.CopyId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", reservation.UserId);
-            return View(reservation);
-        }
 
-        // POST: Reservations/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CopyId,UserId,ReservationDate,Status")] Reservation reservation)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(reservation).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CopyId = new SelectList(db.Copies, "Id", "ShelfLocation", reservation.CopyId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", reservation.UserId);
-            return View(reservation);
-        }
+            reservation.Status = Status.CopyStatus.ReadyForPickUp;
+            reservation.AcceptanceDate = DateTimeOffset.Now;
 
-        // GET: Reservations/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Reservation reservation = db.Reservations.Find(id);
-            if (reservation == null)
-            {
-                return HttpNotFound();
-            }
-            return View(reservation);
-        }
-
-        // POST: Reservations/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Reservation reservation = db.Reservations.Find(id);
-            db.Reservations.Remove(reservation);
+            db.Entry(reservation).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Manage");
         }
+
+        //POST: Reservation/Accept/5
+        [HttpPost]
+        [Authorize(Roles = "Worker,Admin")]
+        public ActionResult ConfirmPickUp(int reservationId)
+        {
+            var reservation = db.Reservations.Include(c => c.Copy).Include(c => c.User).FirstOrDefault(c => c.Id == reservationId);
+            if (reservation == null)
+            {
+                return HttpNotFound("Błąd 404 nie znaleziono rezerwacji");
+            }
+
+            var userId = reservation.UserId;
+            if (userId == null)
+            {
+                db.Reservations.Remove(reservation);
+                db.SaveChanges();
+                return HttpNotFound("Błąd wczytywania użytkownika");
+            }
+
+            var days = db.Limits.Select(c => c.MaxExtensionNumber).FirstOrDefault();
+            if (days == 0)
+            {
+                days = 30;
+            }
+            var loan = new Loan()
+            {
+                CopyId = reservation.CopyId,
+                UserId = userId,
+                LoanDate = DateTimeOffset.Now,
+                DueDate = DateTimeOffset.Now.AddDays(days),
+            };
+
+            db.Reservations.Remove(reservation);
+            db.Loans.Add(loan);
+            db.SaveChanges();
+
+            return RedirectToAction("Manage");
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {
@@ -199,5 +199,6 @@ namespace Asp_Web_Lib.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }

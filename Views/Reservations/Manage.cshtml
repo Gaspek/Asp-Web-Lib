@@ -1,0 +1,98 @@
+﻿@using Asp_Web_Lib.Models
+@model Asp_Web_Lib.ViewModels.ReservationViewModel
+<main>
+    <h2>Rezerwacje</h2>
+
+    @if (Model.TotalItems == 0)
+    {
+        <p>Nie masz żadnych rezerwacji.</p>
+    }
+    else
+    {
+        <div class="table-container">
+            <table class="table">
+                <thead class="header">
+                    <tr>
+                        <th>Okładka</th>
+                        <th>Tytuł</th>
+                        <th>Użytkownik</th>
+                        <th>Status oczekiwania</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr class="content">
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.CoverImage))
+                                {
+                                    <a href="@Url.Action("Details", "Books", new { id = item.BookId })"> <img src="@Url.Content(item.CoverImage)" alt="@item.Title" style="max-width: 100px; max-height: 150px;" /> </a>
+                                }
+                                else
+                                {
+                                    <span>Brak okładki</span>
+                                }
+                            </td>
+                            <td>@item.Title</td>
+                            <td>@item.UserName</td>
+                            <td>
+                                @if (item.ReservationStatus == Status.CopyStatus.ReadyForPickUp)
+                                {
+                                    <span>Książka oczekuje na potwierdzenie odbioru</span><br />
+                                    if (item.AcceptanceDate.HasValue)
+                                    {
+                                        <span>Data akceptacji: @item.AcceptanceDate.Value.ToString("dd-MM-yyyy")</span>
+                                    }
+                                }
+                                else if (item.ReservationStatus == Status.CopyStatus.Reserved)
+                                {
+                                    <p>
+                                        Książka oczekuje na potwierdzenie
+                                    </p>
+                                }
+                                else
+                                {
+                                    <span>Błędna rezerwacja 404</span>
+                                }
+                            </td>
+                            <td class="link-container">
+	                            <div class="action-buttons">
+		                            @if (item.ReservationStatus == Status.CopyStatus.Reserved)
+		                            {
+		                                <form action="@Url.Action("Accept", "Reservations")" method="post" class="">
+			                                @Html.AntiForgeryToken()
+			                                <input type="hidden" name="reservationId" value="@item.ReservationId"/>
+			                                <button type="submit" class="table-button">Akceptuj</button>
+		                                </form>
+		                            }
+		                            @if (item.ReservationStatus == Status.CopyStatus.ReadyForPickUp)
+		                            {
+			                            <form action="@Url.Action("ConfirmPickUp", "Reservations")" method="post" class="">
+				                            @Html.AntiForgeryToken()
+				                            <input type="hidden" name="reservationId" value="@item.ReservationId"/>
+				                            <button type="submit" class="table-button">Potwierdź odebranie</button>
+			                            </form>
+		                            }
+		                            <form action="@Url.Action("Remove", "Reservations")" method="post" class="">
+			                            @Html.AntiForgeryToken()
+			                            <input type="hidden" name="bookId" value="@item.BookId"/>
+			                            <input type="hidden" name="reservationId" value="@item.ReservationId"/>
+			                            <button type="submit" class="table-button">Usuń</button>
+		                            </form>
+	                            </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</main>
+<style>
+    .table-co {
+        width: 2;
+    }
+</style>
+
+@Styles.Render("~/Content/Styles/ModelPanel.css")

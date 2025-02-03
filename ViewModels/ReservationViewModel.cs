@@ -19,6 +19,8 @@ namespace Asp_Web_Lib.ViewModels
         public int ReservationId { get; set; }
         public Status.CopyStatus ReservationStatus { get; set; }
         public DateTimeOffset? AcceptanceDate { get; set; }
+        public string UserId { get; set; }
+        public string UserName { get; set; }
     }
     
 }
