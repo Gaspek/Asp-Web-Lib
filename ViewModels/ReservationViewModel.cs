@@ -16,6 +16,7 @@ namespace Asp_Web_Lib.ViewModels
         public int BookId { get; set; }
         public string Title { get; set; }
         public string CoverImage { get; set; }
+        public int ReservationId { get; set; }
         public Status.CopyStatus ReservationStatus { get; set; }
         public DateTimeOffset? AcceptanceDate { get; set; }
     }

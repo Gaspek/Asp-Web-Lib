@@ -61,11 +61,12 @@
                             </td>
                             <td class="link-container">
                                 <div class="action-buttons">
-                                   <form action="@Url.Action("Remove", "Reservations")" method="post" class="">
-                                       @Html.AntiForgeryToken()
-                                       <input type="hidden" name="bookId" value="@item.BookId" />
-                                       <button type="submit" class="table-button">Usuń</button>
-                                   </form>
+                                    <form action="@Url.Action("Remove", "Reservations")" method="post" class="">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="bookId" value="@item.BookId" />
+                                        <input type="hidden" name="reservationId" value="@item.ReservationId" />
+                                        <button type="submit" class="table-button">Usuń</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

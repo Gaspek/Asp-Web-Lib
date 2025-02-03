@@ -22,9 +22,10 @@ namespace Asp_Web_Lib.Services
         }
 
         // Metoda wywoływana przy zwrocie kopii książki
-        public void ReturnCopy(Copy copy)
+        public void ReturnCopy(int copyId)
         {
             // Oznacz kopię jako dostępna
+            var copy = _db.Copies.Find(copyId);
             copy.Status = Status.CopyStatus.Available;
             _db.Entry(copy).State = EntityState.Modified;
             _db.SaveChanges();

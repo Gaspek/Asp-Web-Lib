@@ -37,6 +37,7 @@ namespace Asp_Web_Lib.Controllers
                     BookId = reservation.Book.Id,
                     Title = reservation.Book.Title,
                     CoverImage = reservation.Book.CoverImage,
+                    ReservationId = reservation.Id,
                     ReservationStatus = reservation.Status
                 };
                 if (reservation.Status == Status.CopyStatus.ReadyForPickUp)
@@ -51,10 +52,10 @@ namespace Asp_Web_Lib.Controllers
 
         //POST:Reservations/Remove/5
         [HttpPost]
-        public ActionResult Remove(int bookId)
+        public ActionResult Remove(int bookId, int reservationId)
         {
             var userId = User.Identity.GetUserId();
-            var reservation = db.Reservations.Include(c => c.Copy).Include(c => c.User).FirstOrDefault(c => c.BookId == bookId && c.UserId == userId);
+            var reservation = db.Reservations.Include(c => c.Copy).Include(c => c.User).FirstOrDefault(c => c.Id == reservationId);
             if (reservation == null)
             {
                 return HttpNotFound("Błąd przy usuwaniu rezerwacji");
@@ -63,7 +64,7 @@ namespace Asp_Web_Lib.Controllers
             if (reservation.Status == Status.CopyStatus.Reserved || reservation.Status == Status.CopyStatus.ReadyForPickUp)
             {
                 var bookService = new BookService(db);
-                bookService.ReturnCopy(reservation.Copy);
+                MvcApplication._bookService.ReturnCopy(reservation.Copy.Id);
             }
             else
             {

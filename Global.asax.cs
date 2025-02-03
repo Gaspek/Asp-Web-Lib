@@ -12,7 +12,8 @@ namespace Asp_Web_Lib
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private static QueueObserver _queueObserver;
+        public static QueueObserver _queueObserver;
+        public static BookService _bookService;
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             // Pobierz aktualn¹ œcie¿kê URL
@@ -54,8 +55,8 @@ namespace Asp_Web_Lib
         private void InitializeQueueObserver()
         {
             var dbContext = new ApplicationDbContext();
-            var bookService = new BookService(dbContext);
-            _queueObserver = new QueueObserver(bookService, dbContext);
+            _bookService = new BookService(dbContext);
+            _queueObserver = new QueueObserver(_bookService, dbContext);
         }
 
 
