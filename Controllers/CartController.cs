@@ -146,7 +146,7 @@ namespace Asp_Web_Lib.Controllers
 
         // POST: Cart/Loan/5
         [HttpPost]
-        public ActionResult Loan(int bookId)
+        public ActionResult Reserve(int bookId)
         {
             string userId = User.Identity.GetUserId();
             var user = db.Users.Find(userId);

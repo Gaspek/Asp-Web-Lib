@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Asp_Web_Lib.Models
 {
-    public class Loan
+    public class Loan : IOrder
     {
         [Key]
         public int Id { get; set; }
@@ -22,9 +22,9 @@ namespace Asp_Web_Lib.Models
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
         [Required]
-        public DateTime LoanDate { get; set; }
+        public DateTimeOffset LoanDate { get; set; }
         [Required]
-        public DateTime DueDate { get; set; }
-        public DateTime? ReturnDate { get; set; }
+        public DateTimeOffset DueDate { get; set; }
+        public DateTimeOffset? ReturnDate { get; set; }
     }
 }

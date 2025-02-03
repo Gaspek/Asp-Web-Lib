@@ -205,6 +205,10 @@
     <Compile Include="Migrations\202502021843364_limits-changes.Designer.cs">
       <DependentUpon>202502021843364_limits-changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202502031227531_IOrder.cs" />
+    <Compile Include="Migrations\202502031227531_IOrder.Designer.cs">
+      <DependentUpon>202502031227531_IOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
@@ -217,6 +221,7 @@
     <Compile Include="Models\ManageUserRolesModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Publisher.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\Review.cs" />
@@ -406,6 +411,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202502021843364_limits-changes.resx">
       <DependentUpon>202502021843364_limits-changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502031227531_IOrder.resx">
+      <DependentUpon>202502031227531_IOrder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Labels.en.resx" />
     <EmbeddedResource Include="Resources\Labels.resx">

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Asp_Web_Lib.Models
 {
-    public class Reservation
+    public class Reservation : IOrder
     {
         [Key]
         public int Id { get; set; }
