@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace Asp_Web_Lib.Controllers
@@ -164,24 +165,53 @@ namespace Asp_Web_Lib.Controllers
                 SaveCartToCookie(cart);
             }
 
-            var copy = db.Copies.FirstOrDefault(c => c.BookId == bookId);
-            if (copy == null)
+            var copy = db.Copies.FirstOrDefault(c => c.BookId == bookId && c.Status == Status.CopyStatus.Available);
+
+            if (copy != null)
             {
-                return HttpNotFound();
+
+                var reservation = new Reservation()
+                {
+                    CopyId = copy.Id,
+                    UserId = userId,
+                    ReservationDate = DateTimeOffset.Now,
+                    Status = Status.CopyStatus.Reserved
+                };
+                copy.Status = Status.CopyStatus.Reserved;
+
+                user.Reservations.Add(reservation);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Reservations");
             }
-
-            var loan = new Loan()
+            else
             {
-                CopyId = copy.Id,
-                UserId = userId,
-                LoanDate = DateTime.Now,
-                DueDate = DateTime.Now.AddDays(30)
-            };
-            copy.Status = Status.CopyStatus.Borrowed;
-            copy.ShelfLocation = "Pickup station";
+                var book = db.Books.FirstOrDefault(c => c.Id == bookId);
+                if (book == null)
+                {
+                    return HttpNotFound("Book not found");
+                }
+                var queueEntry = new QueueEntry()
+                {
+                    BookId = bookId,
+                    UserId = userId,
+                    AddedAt = DateTimeOffset.Now
+                };
+                
+                book.QueueEntries.Add(queueEntry);
 
-            user.Loans.Add(loan);
-            db.SaveChanges();
+                var reservation = new Reservation()
+                {
+                    UserId = userId,
+                    ReservationDate = DateTimeOffset.Now,
+                    Status = Status.CopyStatus.Reserved
+                };
+                copy.Status = Status.CopyStatus.Reserved;
+
+                user.Reservations.Add(reservation);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Reservations");
+
+            }
 
             return RedirectToAction("Index");
         }

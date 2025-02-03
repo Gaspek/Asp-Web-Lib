@@ -16,6 +16,9 @@ namespace Asp_Web_Lib.Models
         public int CopyId { get; set; }
         [ForeignKey("CopyId")]
         public virtual Copy Copy { get; set; }
+        public int? BookId { get; set; }
+        [ForeignKey("BookId")]
+        public virtual Book Book { get; set; }
         // Klucz obcy do ApplicationUser
         [Required]
         public string UserId { get; set; }

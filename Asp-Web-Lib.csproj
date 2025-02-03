@@ -217,6 +217,10 @@
     <Compile Include="Migrations\202502031327402_Queue.Designer.cs">
       <DependentUpon>202502031327402_Queue.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202502031432066_ReservationBook.cs" />
+    <Compile Include="Migrations\202502031432066_ReservationBook.Designer.cs">
+      <DependentUpon>202502031432066_ReservationBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
@@ -430,6 +434,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202502031327402_Queue.resx">
       <DependentUpon>202502031327402_Queue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502031432066_ReservationBook.resx">
+      <DependentUpon>202502031432066_ReservationBook.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Labels.en.resx" />
     <EmbeddedResource Include="Resources\Labels.resx">
