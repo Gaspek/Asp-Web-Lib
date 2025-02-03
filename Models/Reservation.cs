@@ -7,15 +7,17 @@ using System.Web;
 
 namespace Asp_Web_Lib.Models
 {
-    public class Reservation
+    public class Reservation : IOrder
     {
         [Key]
         public int Id { get; set; }
         // Klucz obcy do Copy
-        [Required]
-        public int CopyId { get; set; }
+        public int? CopyId { get; set; }
         [ForeignKey("CopyId")]
         public virtual Copy Copy { get; set; }
+        public int? BookId { get; set; }
+        [ForeignKey("BookId")]
+        public virtual Book Book { get; set; }
         // Klucz obcy do ApplicationUser
         [Required]
         public string UserId { get; set; }
@@ -25,5 +27,6 @@ namespace Asp_Web_Lib.Models
         public DateTimeOffset ReservationDate { get; set; }
         [Required]
         public Status.CopyStatus Status { get; set; } // np. "Aktywna", "Anulowana", "Zrealizowana"
+        public DateTimeOffset? AcceptanceDate{ get; set; }
     }
 }

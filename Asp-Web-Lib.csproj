@@ -205,6 +205,30 @@
     <Compile Include="Migrations\202502021843364_limits-changes.Designer.cs">
       <DependentUpon>202502021843364_limits-changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202502031227531_IOrder.cs" />
+    <Compile Include="Migrations\202502031227531_IOrder.Designer.cs">
+      <DependentUpon>202502031227531_IOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502031251194_ReservationAcceptDate.cs" />
+    <Compile Include="Migrations\202502031251194_ReservationAcceptDate.Designer.cs">
+      <DependentUpon>202502031251194_ReservationAcceptDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502031327402_Queue.cs" />
+    <Compile Include="Migrations\202502031327402_Queue.Designer.cs">
+      <DependentUpon>202502031327402_Queue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502031432066_ReservationBook.cs" />
+    <Compile Include="Migrations\202502031432066_ReservationBook.Designer.cs">
+      <DependentUpon>202502031432066_ReservationBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502031502285_nullable.cs" />
+    <Compile Include="Migrations\202502031502285_nullable.Designer.cs">
+      <DependentUpon>202502031502285_nullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502031504209_Null.cs" />
+    <Compile Include="Migrations\202502031504209_Null.Designer.cs">
+      <DependentUpon>202502031504209_Null.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
@@ -217,7 +241,9 @@
     <Compile Include="Models\ManageUserRolesModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Publisher.cs" />
+    <Compile Include="Models\Queue.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Status.cs" />
@@ -232,6 +258,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\ReservationViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -407,6 +434,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202502021843364_limits-changes.resx">
       <DependentUpon>202502021843364_limits-changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502031227531_IOrder.resx">
+      <DependentUpon>202502031227531_IOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502031251194_ReservationAcceptDate.resx">
+      <DependentUpon>202502031251194_ReservationAcceptDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502031327402_Queue.resx">
+      <DependentUpon>202502031327402_Queue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502031432066_ReservationBook.resx">
+      <DependentUpon>202502031432066_ReservationBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502031502285_nullable.resx">
+      <DependentUpon>202502031502285_nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502031504209_Null.resx">
+      <DependentUpon>202502031504209_Null.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Labels.en.resx" />
     <EmbeddedResource Include="Resources\Labels.resx">

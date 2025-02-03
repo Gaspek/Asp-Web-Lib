@@ -40,14 +40,18 @@ else
                             {
                                 if (item.CanJoinQueue)
                                 {
-                                    <button class="table-button" data-bookid="@item.BookId">Dołącz do kolejki</button>
+	                                <form action="@Url.Action("Reserve", "Cart", new { bookId = item.BookId })" method="post">
+                                        <button class="table-button" type="submit">
+                                            Dołącz do kolejki
+                                        </button>
+	                                </form>
                                 }
                             }
                             else
                             {
                                 if (item.IsAvailable)
                                 {
-	                                <form action="@Url.Action("Loan", "Cart", new { bookId = item.BookId })" method="post">
+	                                <form action="@Url.Action("Reserve", "Cart", new { bookId = item.BookId })" method="post">
 		                                <button class="table-button" type="submit">
 			                                Wypożycz
 		                                </button>
