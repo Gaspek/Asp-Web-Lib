@@ -34,6 +34,6 @@ namespace Asp_Web_Lib.Models
         public virtual ICollection<Copy> Copies { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
-        public virtual ICollection<QueueEntry> QueueEntries { get; set; }
+        public virtual ICollection<QueueEntry> QueueEntries { get; set; } = new List<QueueEntry>();
     }
 }

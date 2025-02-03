@@ -186,11 +186,22 @@ namespace Asp_Web_Lib.Controllers
             }
             else
             {
-                var book = db.Books.FirstOrDefault(c => c.Id == bookId);
+                var book = db.Books.Include(b => b.QueueEntries).FirstOrDefault(c => c.Id == bookId);
                 if (book == null)
                 {
                     return HttpNotFound("Book not found");
                 }
+                var entry = book.QueueEntries.FirstOrDefault(q => q.UserId == userId);
+                if (entry != null)
+                {
+                    return RedirectToAction("Index", "Reservations");
+                }
+
+                if (book.QueueEntries == null)
+                {
+                    book.QueueEntries = new List<QueueEntry>();
+                }
+
                 var queueEntry = new QueueEntry()
                 {
                     BookId = bookId,

@@ -8,12 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using Asp_Web_Lib.Filters;
 using Asp_Web_Lib.Models;
+using Asp_Web_Lib.Services;
 using Asp_Web_Lib.ViewModels;
 using Microsoft.AspNet.Identity;
 
 namespace Asp_Web_Lib.Controllers
 {
-[Authorize(Roles = "Admin")]
     [Culture]
     public class ReservationsController : Controller
     {
@@ -47,6 +47,44 @@ namespace Asp_Web_Lib.Controllers
             }
 
             return View(viewModel);
+        }
+
+        //POST:Reservations/Remove/5
+        [HttpPost]
+        public ActionResult Remove(int bookId)
+        {
+            var userId = User.Identity.GetUserId();
+            var reservation = db.Reservations.Include(c => c.Copy).Include(c => c.User).FirstOrDefault(c => c.BookId == bookId && c.UserId == userId);
+            if (reservation == null)
+            {
+                return HttpNotFound("Błąd przy usuwaniu rezerwacji");
+            }
+
+            if (reservation.Status == Status.CopyStatus.Reserved || reservation.Status == Status.CopyStatus.ReadyForPickUp)
+            {
+                var bookService = new BookService(db);
+                bookService.ReturnCopy(reservation.Copy);
+            }
+            else
+            {
+                var book = db.Books.Include(c => c.QueueEntries).FirstOrDefault(c => c.Id == bookId);
+                if (book == null)
+                {
+                    return HttpNotFound("Błąd przy usuwaniu rezerwacji");
+                }
+
+                var entry = db.QueueEntries.FirstOrDefault(c => c.UserId == userId);
+                if (entry != null)
+                {
+                    db.QueueEntries.Remove(entry);
+                    db.SaveChanges();
+                }
+            }
+
+            db.Reservations.Remove(reservation);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // GET: Reservations/Details/5

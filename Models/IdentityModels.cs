@@ -45,6 +45,7 @@ namespace Asp_Web_Lib.Models
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<QueueEntry> QueueEntries { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

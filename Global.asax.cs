@@ -1,3 +1,5 @@
+using Asp_Web_Lib.Models;
+using Asp_Web_Lib.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,7 @@ namespace Asp_Web_Lib
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static QueueObserver _queueObserver;
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             // Pobierz aktualn¹ œcie¿kê URL
@@ -45,7 +48,16 @@ namespace Asp_Web_Lib
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            InitializeQueueObserver();
         }
+
+        private void InitializeQueueObserver()
+        {
+            var dbContext = new ApplicationDbContext();
+            var bookService = new BookService(dbContext);
+            _queueObserver = new QueueObserver(bookService, dbContext);
+        }
+
 
     }
 }
