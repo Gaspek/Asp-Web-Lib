@@ -1,27 +1,45 @@
-﻿<main>
+﻿
+<main>
     <h2 class="section-title">Nowe Pozycje</h2>
     <div class="slider-wrapper">
-        <div class="slider-container">
-            @foreach (var book in Model.Books)
-            {
-                <div class="book" onclick="navigateToBook(@book.BookId)" tabindex="0" onkeypress="handleKeyPress(event, @book.BookId)">
-                    <img src="@book.CoverImage" alt="Okładka książki '@book.Title' autorstwa @book.Authors">
-                    <div class="book-title">@book.Title</div>
-                    <div class="book-author">@book.Authors</div>
-                    <div class="book-description">@book.Description</div>
-                </div>
-            }
-        </div>
+	    <div class="slider-container">
+		    @foreach (var book in Model.NewBooks)
+		    {
+			    <div class="book" onclick="navigateToBook(@book.BookId)" tabindex="0" onkeypress="handleKeyPress(event, @book.BookId)">
+				    <img src="@book.CoverImage" alt="Okładka książki '@book.Title' autorstwa @book.Authors">
+				    <div class="book-title">@book.Title</div>
+				    <div class="book-author">@book.Authors</div>
+				    <div class="book-description">@book.Description</div>
+			    </div>
+		    }
+	    </div>
+    </div>
+    
+    <h2 class="section-title">Propozycje</h2>
+    <div class="slider-wrapper">
+	    <div class="slider-container">
+		    @foreach (var book in Model.Books)
+		    {
+			    <div class="book" onclick="navigateToBook(@book.BookId)" tabindex="0" onkeypress="handleKeyPress(event, @book.BookId)">
+				    <img src="@book.CoverImage" alt="Okładka książki '@book.Title' autorstwa @book.Authors">
+				    <div class="book-title">@book.Title</div>
+				    <div class="book-author">@book.Authors</div>
+				    <div class="book-description">@book.Description</div>
+			    </div>
+		    }
+	    </div>
     </div>
 </main>
 @section scripts
 {
     <script>
         // Enable horizontal scroll with vertical mouse wheel
-        const slider = document.querySelector('.slider-container');
-        slider.addEventListener('wheel', (event) => {
-            event.preventDefault();
-            slider.scrollLeft += event.deltaY;
+        const sliders = document.querySelectorAll('.slider-container');
+        sliders.forEach(slider => {
+	        slider.addEventListener('wheel', (event) => {
+		        event.preventDefault();
+		        slider.scrollLeft += event.deltaY;
+	        });
         });
         // Navigate to book details page
         function navigateToBook(bookId) {

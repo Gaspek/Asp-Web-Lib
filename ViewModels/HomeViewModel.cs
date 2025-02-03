@@ -14,6 +14,8 @@ namespace Asp_Web_Lib.ViewModels
     public class HomeViewModel
     {
         public List<BookViewModel> Books { get; set; }
+        public List<BookViewModel> NewBooks { get; set; }
+
     }
 
     public class BookViewModel

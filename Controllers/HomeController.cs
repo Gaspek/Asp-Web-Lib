@@ -16,6 +16,7 @@ namespace Asp_Web_Lib.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index(int? id)
         {
+            DateTimeOffset newBooksOffset = DateTimeOffset.Now.AddDays(-30);
             var Books = db.Books.ToList();
             var model = new HomeViewModel()
             {
@@ -25,6 +26,14 @@ namespace Asp_Web_Lib.Controllers
                     Title = b.Title,
                     Description = b.Description,
                     Authors = string.Join(", ", b.Authors.Select(a => a.FirstName +" "+ a.LastName)),
+                    CoverImage = b.CoverImage
+                }).ToList(),
+                NewBooks = Books.Where(book => book.PublicationYear >= newBooksOffset).Select(b => new BookViewModel
+                {
+                    BookId = b.Id,
+                    Title = b.Title,
+                    Description = b.Description,
+                    Authors = string.Join(", ", b.Authors.Select(a => a.FirstName + " " + a.LastName)),
                     CoverImage = b.CoverImage
                 }).ToList()
             };
