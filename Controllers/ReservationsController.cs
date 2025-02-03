@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Asp_Web_Lib.Filters;
 using Asp_Web_Lib.Models;
+using Asp_Web_Lib.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace Asp_Web_Lib.Controllers
 {
@@ -20,8 +22,35 @@ namespace Asp_Web_Lib.Controllers
         // GET: Reservations
         public ActionResult Index()
         {
-            var reservations = db.Reservations.Include(r => r.Copy).Include(r => r.User);
-            return View(reservations.ToList());
+            var userId = User.Identity.GetUserId();
+            var reservations = db.Reservations
+                .Include(r => r.Copy)
+                .Include(r => r.User)
+                .Include(r => r.Copy.Book)
+                .Where(r => r.UserId == userId);
+            var viewModel = new ReservationViewModel();
+
+            foreach (var reservation in reservations.ToList())
+            {
+                var viewItem = new ReservationItemViewModel()
+                {
+                    BookId = reservation.Copy.BookId,
+                    Title = reservation.Copy.Book.Title,
+                    CoverImage = reservation.Copy.Book.CoverImage,
+                };
+                if (reservation.Status == Status.CopyStatus.ReadyForPickUp)
+                {
+                    viewItem.IsReadyForPickUp = true;
+                    viewItem.AcceptanceDate = reservation.AcceptanceDate;
+                }
+                else
+                {
+                    viewItem.IsReadyForPickUp = false;
+                }
+                viewModel.Items.Add(viewItem);
+            }
+
+            return View(viewModel);
         }
 
         // GET: Reservations/Details/5

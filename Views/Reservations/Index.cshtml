@@ -1,55 +1,59 @@
-﻿@model IEnumerable<Asp_Web_Lib.Models.Reservation>
+﻿@model Asp_Web_Lib.ViewModels.ReservationViewModel
+<main>
+    <h2>Rezerwacje</h2>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Copy.ShelfLocation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReservationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+    @if (Model.TotalItems == 0)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Copy.ShelfLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReservationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+        <p>Nie masz żadnych rezerwacji.</p>
     }
-
-</table>
+    else
+    {
+        <div class="table-container">
+            <table class="table">
+                <thead class="header">
+                    <tr>
+                        <th>Okładka</th>
+                        <th>Tytuł</th>
+                        <th>Status oczekiwania</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr class="content">
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.CoverImage))
+                                {
+                                    <a href="@Url.Action("Details", "Books", new { id = item.BookId })"> <img src="@Url.Content(item.CoverImage)" alt="@item.Title" style="max-width: 100px; max-height: 150px;" /> </a>
+                                }
+                                else
+                                {
+                                    <span>Brak okładki</span>
+                                }
+                            </td>
+                            <td>@item.Title</td>
+                            <td>@item.IsReadyForPickUp</td>
+                            <td class="link-container">
+                                <div class="action-buttons">
+                                   <form action="@Url.Action("Remove", "Reservations")" method="post" class="">
+                                       @Html.AntiForgeryToken()
+                                       <input type="hidden" name="bookId" value="@item.BookId" />
+                                       <button type="submit" class="table-button">Usuń</button>
+                                   </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</main>
+<style>
+    .table-co {
+        width: 2;
+    }
+</style>
 
 @Styles.Render("~/Content/Styles/ModelPanel.css")
-

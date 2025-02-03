@@ -25,5 +25,6 @@ namespace Asp_Web_Lib.Models
         public DateTimeOffset ReservationDate { get; set; }
         [Required]
         public Status.CopyStatus Status { get; set; } // np. "Aktywna", "Anulowana", "Zrealizowana"
+        public DateTimeOffset? AcceptanceDate{ get; set; }
     }
 }

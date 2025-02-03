@@ -10,6 +10,7 @@ namespace Asp_Web_Lib.Models
         public enum CopyStatus
         {
             Available,
+            ReadyForPickUp,
             Borrowed,
             Reserved
         }

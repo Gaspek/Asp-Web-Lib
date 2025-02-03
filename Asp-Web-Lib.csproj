@@ -209,6 +209,10 @@
     <Compile Include="Migrations\202502031227531_IOrder.Designer.cs">
       <DependentUpon>202502031227531_IOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202502031251194_ReservationAcceptDate.cs" />
+    <Compile Include="Migrations\202502031251194_ReservationAcceptDate.Designer.cs">
+      <DependentUpon>202502031251194_ReservationAcceptDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
@@ -237,6 +241,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\ReservationViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -414,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202502031227531_IOrder.resx">
       <DependentUpon>202502031227531_IOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502031251194_ReservationAcceptDate.resx">
+      <DependentUpon>202502031251194_ReservationAcceptDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Labels.en.resx" />
     <EmbeddedResource Include="Resources\Labels.resx">
