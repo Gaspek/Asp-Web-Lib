@@ -57,6 +57,22 @@
                 // Przypisz rolę "Admin"
                 userManager.AddToRole(adminUser.Id, "Admin");
             }
-        }
+
+			// dodaje do bazy rekord z limitami który jest później do zedytowania
+			if (!context.Limits.Any()) // Sprawdza, czy tabela jest pusta
+			{
+				context.Limits.Add(new Limits
+				{
+					IdLimits = 1, // Zawsze ten sam ID
+					MaxBorrowedBooks = 3,
+					MaxWaitingBooks = 5,
+					MaxExtensionNumber = 3,
+					ExtensionDays = 30,
+					LoanAmount = 0.50m
+				});
+
+				context.SaveChanges();
+			}
+		}
     }
 }

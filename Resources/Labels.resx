@@ -120,6 +120,12 @@
   <data name="Change_password" xml:space="preserve">
     <value>Zmień hasło</value>
   </data>
+  <data name="ExtensionDays" xml:space="preserve">
+    <value>Liczba dni przedłużenia/wypożyczenia książki</value>
+  </data>
+  <data name="LoanAmount" xml:space="preserve">
+    <value>Kwota naliczana za dzień przetrzymania książki</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Zaloguj się</value>
   </data>
@@ -143,6 +149,15 @@
   </data>
   <data name="Manage_tags" xml:space="preserve">
     <value>Zarządzaj tagami</value>
+  </data>
+  <data name="MaxBorrowedBooks" xml:space="preserve">
+    <value>Maksymalna liczba wypożyczeń</value>
+  </data>
+  <data name="MaxExtensionNumber" xml:space="preserve">
+    <value>Maksymalna liczba przedłużeń</value>
+  </data>
+  <data name="MaxWaitingBooks" xml:space="preserve">
+    <value>Maksymalna liczba książek w kolejce</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Zarejestruj się</value>

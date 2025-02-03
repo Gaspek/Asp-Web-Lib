@@ -1,57 +1,49 @@
-﻿@model IEnumerable<Asp_Web_Lib.Models.Limits>
-
+﻿@model Asp_Web_Lib.Models.Limits
+@using Asp_Web_Lib.Resources
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Ustawienia wypożyczeń</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MaxBorrowedBooks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MaxWaitingBooks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MaxExtensionNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExtensionDays)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LoanAmount)
-        </th>
-        <th></th>
-    </tr>
+<div class="form-container">
+    <hr />
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxBorrowedBooks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxWaitingBooks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxExtensionNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExtensionDays)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LoanAmount)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdLimits }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdLimits }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdLimits })
-        </td>
-    </tr>
-}
+    <div class="form-grid"
+        <div class="form-group">
+            @*@Labels.MaxBorrowedBooks*@
+            <h5>@Html.DisplayFor(model => model.MaxBorrowedBooks)</h5>
 
-</table>
+        </div>
+        <br />
+        <div class="form-group">
+            @Labels.MaxWaitingBooks
+            <h5>@Html.DisplayFor(model => model.MaxWaitingBooks)</h5>
+        </div>
+        <br />
+        <div class="form-group">
+            @Labels.MaxExtensionNumber
+            <h5>@Html.DisplayFor(model => model.MaxExtensionNumber)</h5>
+        </div>
+        <br />
+        <div class="form-group">
+            @Labels.ExtensionDays
+            <h5>@Html.DisplayFor(model => model.ExtensionDays)</h5>
+        </div>
+        <br />
+        <div class="form-group">
+            @Labels.LoanAmount
+            <h5>@Html.DisplayFor(model => model.LoanAmount)</h5>
+        </div>
+        <br />
+    @Html.ActionLink("Edytuj", "Edit", new { id = 1 })
+
+</div>
+    @*@Html.ActionLink("Edit", "Edit", new { id = item.IdLimits }) |
+    @Html.ActionLink("Edit", "Edit", new { id = item.IdLimits }) |
+    @Html.ActionLink("Details", "Details", new { id = item.IdLimits }) |
+    @Html.ActionLink("Delete", "Delete", new { id = item.IdLimits })
+
+    @Html.ActionLink("Create New", "Create")*@
+
+    

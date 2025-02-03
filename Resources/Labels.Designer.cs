@@ -70,6 +70,24 @@ namespace Asp_Web_Lib.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Liczba dni przedłużenia/wypożyczenia książki.
+        /// </summary>
+        public static string ExtensionDays {
+            get {
+                return ResourceManager.GetString("ExtensionDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Kwota naliczana za dzień przetrzymania książki.
+        /// </summary>
+        public static string LoanAmount {
+            get {
+                return ResourceManager.GetString("LoanAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Wyloguj się.
         /// </summary>
         public static string Log_off {
@@ -138,6 +156,33 @@ namespace Asp_Web_Lib.Resources {
         public static string Manage_tags {
             get {
                 return ResourceManager.GetString("Manage_tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Maksymalna liczba wypożyczeń.
+        /// </summary>
+        public static string MaxBorrowedBooks {
+            get {
+                return ResourceManager.GetString("MaxBorrowedBooks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Maksymalna liczba przedłużeń.
+        /// </summary>
+        public static string MaxExtensionNumber {
+            get {
+                return ResourceManager.GetString("MaxExtensionNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Maksymalna liczba książek w kolejce.
+        /// </summary>
+        public static string MaxWaitingBooks {
+            get {
+                return ResourceManager.GetString("MaxWaitingBooks", resourceCulture);
             }
         }
         

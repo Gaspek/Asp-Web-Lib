@@ -197,6 +197,14 @@
     <Compile Include="Migrations\202502021320550_limity.Designer.cs">
       <DependentUpon>202502021320550_limity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202502021801119_limits.cs" />
+    <Compile Include="Migrations\202502021801119_limits.Designer.cs">
+      <DependentUpon>202502021801119_limits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502021843364_limits-changes.cs" />
+    <Compile Include="Migrations\202502021843364_limits-changes.Designer.cs">
+      <DependentUpon>202502021843364_limits-changes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
@@ -392,6 +400,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202502021320550_limity.resx">
       <DependentUpon>202502021320550_limity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502021801119_limits.resx">
+      <DependentUpon>202502021801119_limits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502021843364_limits-changes.resx">
+      <DependentUpon>202502021843364_limits-changes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Labels.en.resx" />
     <EmbeddedResource Include="Resources\Labels.resx">

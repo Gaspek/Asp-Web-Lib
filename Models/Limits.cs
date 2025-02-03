@@ -35,6 +35,6 @@ namespace Asp_Web_Lib.Models
 
 		[Required]
 		//Kwota za dzień opóźnienia
-		public int LoanAmount { get; set; }
+		public decimal LoanAmount { get; set; }
 	}
 }

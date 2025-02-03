@@ -17,8 +17,16 @@ namespace Asp_Web_Lib.Controllers
         // GET: Limits
         public ActionResult Index()
         {
-            return View(db.Limits.ToList());
-        }
+			var limit = db.Limits.FirstOrDefault();
+
+			if (limit == null)
+			{
+				// jeżeli nie ma rekrdów
+				return RedirectToAction("Create");
+			}
+
+			return View(limit);
+		}
 
         // GET: Limits/Details/5
         public ActionResult Details(int? id)

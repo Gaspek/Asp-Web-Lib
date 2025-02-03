@@ -120,6 +120,12 @@
   <data name="Change_password" xml:space="preserve">
     <value>Change your password</value>
   </data>
+  <data name="ExtensionDays" xml:space="preserve">
+    <value>The number of days for book extension/loan</value>
+  </data>
+  <data name="LoanAmount" xml:space="preserve">
+    <value>The amount charged per day for keeping the book overdue</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
@@ -143,6 +149,15 @@
   </data>
   <data name="Manage_tags" xml:space="preserve">
     <value>Manage tags</value>
+  </data>
+  <data name="MaxBorrowedBooks" xml:space="preserve">
+    <value>The maximum number of book loans</value>
+  </data>
+  <data name="MaxExtensionNumber" xml:space="preserve">
+    <value>The maximum number of extensions</value>
+  </data>
+  <data name="MaxWaitingBooks" xml:space="preserve">
+    <value>The maximum number of books in the waiting list</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
