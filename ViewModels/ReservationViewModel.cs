@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Asp_Web_Lib.Models;
 
 namespace Asp_Web_Lib.ViewModels
 {
@@ -15,7 +16,7 @@ namespace Asp_Web_Lib.ViewModels
         public int BookId { get; set; }
         public string Title { get; set; }
         public string CoverImage { get; set; }
-        public bool IsReadyForPickUp { get; set; }
+        public Status.CopyStatus ReservationStatus { get; set; }
         public DateTimeOffset? AcceptanceDate { get; set; }
     }
     

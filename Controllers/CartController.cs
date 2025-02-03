@@ -173,6 +173,7 @@ namespace Asp_Web_Lib.Controllers
                 var reservation = new Reservation()
                 {
                     CopyId = copy.Id,
+                    BookId = copy.BookId,
                     UserId = userId,
                     ReservationDate = DateTimeOffset.Now,
                     Status = Status.CopyStatus.Reserved
@@ -202,10 +203,9 @@ namespace Asp_Web_Lib.Controllers
                 var reservation = new Reservation()
                 {
                     UserId = userId,
-                    ReservationDate = DateTimeOffset.Now,
-                    Status = Status.CopyStatus.Reserved
+                    BookId = bookId,
+                    Status = Status.CopyStatus.InQueue
                 };
-                copy.Status = Status.CopyStatus.Reserved;
 
                 user.Reservations.Add(reservation);
                 db.SaveChanges();

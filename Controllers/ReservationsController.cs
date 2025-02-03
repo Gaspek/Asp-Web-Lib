@@ -26,7 +26,7 @@ namespace Asp_Web_Lib.Controllers
             var reservations = db.Reservations
                 .Include(r => r.Copy)
                 .Include(r => r.User)
-                .Include(r => r.Copy.Book)
+                .Include(r => r.Book)
                 .Where(r => r.UserId == userId);
             var viewModel = new ReservationViewModel();
 
@@ -34,18 +34,14 @@ namespace Asp_Web_Lib.Controllers
             {
                 var viewItem = new ReservationItemViewModel()
                 {
-                    BookId = reservation.Copy.BookId,
-                    Title = reservation.Copy.Book.Title,
-                    CoverImage = reservation.Copy.Book.CoverImage,
+                    BookId = reservation.Book.Id,
+                    Title = reservation.Book.Title,
+                    CoverImage = reservation.Book.CoverImage,
+                    ReservationStatus = reservation.Status
                 };
                 if (reservation.Status == Status.CopyStatus.ReadyForPickUp)
                 {
-                    viewItem.IsReadyForPickUp = true;
                     viewItem.AcceptanceDate = reservation.AcceptanceDate;
-                }
-                else
-                {
-                    viewItem.IsReadyForPickUp = false;
                 }
                 viewModel.Items.Add(viewItem);
             }

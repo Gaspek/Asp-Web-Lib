@@ -13,7 +13,7 @@ namespace Asp_Web_Lib.Models
         public int Id { get; set; }
         // Klucz obcy do Copy
         [Required]
-        public int CopyId { get; set; }
+        public int? CopyId { get; set; }
         [ForeignKey("CopyId")]
         public virtual Copy Copy { get; set; }
         // Klucz obcy do ApplicationUser

@@ -1,4 +1,5 @@
-﻿@model Asp_Web_Lib.ViewModels.ReservationViewModel
+﻿@using Asp_Web_Lib.Models
+@model Asp_Web_Lib.ViewModels.ReservationViewModel
 <main>
     <h2>Rezerwacje</h2>
 
@@ -33,7 +34,31 @@
                                 }
                             </td>
                             <td>@item.Title</td>
-                            <td>@item.IsReadyForPickUp</td>
+                            <td>
+	                            @if (item.ReservationStatus == Status.CopyStatus.ReadyForPickUp)
+	                            {
+		                            <span>Książka gotowa do odbioru</span><br/>
+		                            if (item.AcceptanceDate.HasValue)
+		                            {
+			                            var dueDate = item.AcceptanceDate.Value.AddDays(30);
+			                            <span>Masz czas na odbiór do: @dueDate.ToString("yyyy-MM-dd")</span>
+		                            }
+		                            else
+		                            {
+			                            <span>Błąd przy wczytywaniu daty oczekiwania</span>
+		                            }
+	                            }else if (item.ReservationStatus == Status.CopyStatus.Reserved)
+	                            {
+		                            <p>
+			                            Książka zarezerwowana,<br/>
+                                        Oczekiwanie na zatwierdzenie do odbioru
+		                            </p>
+	                            }
+	                            else
+	                            {
+                                    <span>Oczekiwania na dostępność książki</span>
+	                            }
+                            </td>
                             <td class="link-container">
                                 <div class="action-buttons">
                                    <form action="@Url.Action("Remove", "Reservations")" method="post" class="">
