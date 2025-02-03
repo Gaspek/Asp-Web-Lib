@@ -61,6 +61,42 @@ namespace Asp_Web_Lib.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Twoje konto nie zostało jeszcze potwierdzone przez administratora..
+        /// </summary>
+        public static string AccountConfirmationError {
+            get {
+                return ResourceManager.GetString("AccountConfirmationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Konta oczekujące na zatwierdzenie.
+        /// </summary>
+        public static string AccountsForAproval {
+            get {
+                return ResourceManager.GetString("AccountsForAproval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Status konta.
+        /// </summary>
+        public static string AccountStatus {
+            get {
+                return ResourceManager.GetString("AccountStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Akcje.
+        /// </summary>
+        public static string Actions {
+            get {
+                return ResourceManager.GetString("Actions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Zmień hasło.
         /// </summary>
         public static string Change_password {
@@ -70,11 +106,38 @@ namespace Asp_Web_Lib.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Konta oczekujące na potwierdzenie.
+        /// </summary>
+        public static string ConfirmAcconutLabel {
+            get {
+                return ResourceManager.GetString("ConfirmAcconutLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Zweryfikuj konto.
+        /// </summary>
+        public static string ConfirmAccountBtn {
+            get {
+                return ResourceManager.GetString("ConfirmAccountBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Liczba dni przedłużenia/wypożyczenia książki.
         /// </summary>
         public static string ExtensionDays {
             get {
                 return ResourceManager.GetString("ExtensionDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Ustawienia biblioteki.
+        /// </summary>
+        public static string LibrarySettings {
+            get {
+                return ResourceManager.GetString("LibrarySettings", resourceCulture);
             }
         }
         
@@ -160,6 +223,15 @@ namespace Asp_Web_Lib.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Zarządzaj rolami.
+        /// </summary>
+        public static string ManageRoles {
+            get {
+                return ResourceManager.GetString("ManageRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Maksymalna liczba wypożyczeń.
         /// </summary>
         public static string MaxBorrowedBooks {
@@ -187,11 +259,29 @@ namespace Asp_Web_Lib.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Oczekuje na potwierdzenie.
+        /// </summary>
+        public static string PendingForAproval {
+            get {
+                return ResourceManager.GetString("PendingForAproval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Zarejestruj się.
         /// </summary>
         public static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Role.
+        /// </summary>
+        public static string Roles {
+            get {
+                return ResourceManager.GetString("Roles", resourceCulture);
             }
         }
     }

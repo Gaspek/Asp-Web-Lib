@@ -106,5 +106,51 @@ namespace Asp_Web_Lib.Controllers
             // Jeśli model jest nieprawidłowy, ponownie wyświetl formularz
             return View(model);
         }
-    }
+
+
+        // POST: Admin/ConfirmAccount
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ConfirmAccount(string userId)
+        {
+			var user = await UserManager.FindByIdAsync(userId);
+
+			if (user == null)
+			{
+				return HttpNotFound("Użytkownik nie znaleziony.");
+			}
+
+			// zmiana statusu
+			user.EmailConfirmed = true;
+
+			// aktualizacja użytkownika
+			var result = await UserManager.UpdateAsync(user);
+
+			if (result.Succeeded)
+			{
+				// Opcjonalnie: wyślij e-mail informujący o zatwierdzeniu
+				await UserManager.SendEmailAsync(user.Id, "Twoje konto zostało zatwierdzone", "Twoje konto zostało zatwierdzone przez administratora. Teraz możesz się zalogować.");
+
+				// Zwróć komunikat o powodzeniu
+				TempData["Message"] = "Konto zostało zatwierdzone!";
+				return RedirectToAction("PendingUsers"); // Przekierowanie na stronę z oczekującymi użytkownikami
+			}
+			else
+			{
+				// Jeśli aktualizacja użytkownika się nie powiodła
+				ModelState.AddModelError("", "Błąd podczas zatwierdzania konta.");
+				return View();
+			}
+		}
+
+		public ActionResult PendingUsers()
+		{
+			// Pobierz wszystkich użytkowników, którzy mają EmailConfirmed = false
+			var pendingUsers = UserManager.Users.Where(u => !u.EmailConfirmed).ToList();
+
+			return View(pendingUsers);
+		}
+
+
+	}
 }

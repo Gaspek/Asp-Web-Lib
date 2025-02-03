@@ -12,8 +12,12 @@
             @if (User.IsInRole("Admin"))
             {
                 <dt>Panel administracyjny </dt>
+                <dt><h5>Użytkownicy</h5></dt>
                 <dd>[ @Html.ActionLink(@Labels.Manage_permissions, "Index", "Admin") ]</dd>
-                <dd>[ @Html.ActionLink("Ustawienia wypożyczeń", "Index", "Limits") ]</dd>
+                <dd>[ @Html.ActionLink(@Labels.AccountsForAproval, "PendingUsers", "Admin") ]</dd>
+
+                <dt><h5>Biblioteka</h5></dt>
+                <dd>[ @Html.ActionLink(Labels.LibrarySettings, "Index", "Limits") ]</dd>
             }
 
         </dl>

@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Asp_Web_Lib.Models.UserViewModel>
-
+@using Asp_Web_Lib.Resources
 @{
 	ViewBag.Title = "Lista użytkowników";
 }
@@ -7,19 +7,20 @@
 <h2>Lista użytkowników</h2>
 
 <table class="table">
-	<tr>
-		<th>Email</th>
-		<th>Role</th>
-		<th>Akcje</th>
-	</tr>
+    <tr>
+        <th>Email</th>
+        <th>@Labels.Roles</th>
+        <th>@Labels.Actions</th>
+
+    </tr>
 	@foreach (var user in Model)
 	{
 		<tr>
 			<td>@user.Email</td>
 			<td>@string.Join(", ", user.Roles)</td>
-			<td>
-				@Html.ActionLink("Zarządzaj rolami", "ManageRoles", new { userId = user.UserId }, new { @class = "btn btn-primary" })
-			</td>
+            <td>
+                @Html.ActionLink(@Labels.ManageRoles, "ManageRoles", new { userId = user.UserId }, new { @class = "btn btn-primary" })
+            </td>
 		</tr>
 	}
 </table>

@@ -117,11 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountConfirmationError" xml:space="preserve">
+    <value>Twoje konto nie zostało jeszcze potwierdzone przez administratora.</value>
+  </data>
+  <data name="AccountsForAproval" xml:space="preserve">
+    <value>Konta oczekujące na zatwierdzenie</value>
+  </data>
+  <data name="AccountStatus" xml:space="preserve">
+    <value>Status konta</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Akcje</value>
+  </data>
   <data name="Change_password" xml:space="preserve">
     <value>Zmień hasło</value>
   </data>
+  <data name="ConfirmAcconutLabel" xml:space="preserve">
+    <value>Konta oczekujące na potwierdzenie</value>
+  </data>
+  <data name="ConfirmAccountBtn" xml:space="preserve">
+    <value>Zweryfikuj konto</value>
+  </data>
   <data name="ExtensionDays" xml:space="preserve">
     <value>Liczba dni przedłużenia/wypożyczenia książki</value>
+  </data>
+  <data name="LibrarySettings" xml:space="preserve">
+    <value>Ustawienia biblioteki</value>
   </data>
   <data name="LoanAmount" xml:space="preserve">
     <value>Kwota naliczana za dzień przetrzymania książki</value>
@@ -131,6 +152,9 @@
   </data>
   <data name="Log_off" xml:space="preserve">
     <value>Wyloguj się</value>
+  </data>
+  <data name="ManageRoles" xml:space="preserve">
+    <value>Zarządzaj rolami</value>
   </data>
   <data name="Manage_authors" xml:space="preserve">
     <value>Zarządzaj autorami</value>
@@ -159,7 +183,13 @@
   <data name="MaxWaitingBooks" xml:space="preserve">
     <value>Maksymalna liczba książek w kolejce</value>
   </data>
+  <data name="PendingForAproval" xml:space="preserve">
+    <value>Oczekuje na potwierdzenie</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Zarejestruj się</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Role</value>
   </data>
 </root>
