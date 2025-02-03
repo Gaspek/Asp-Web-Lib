@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -33,6 +34,6 @@ namespace Asp_Web_Lib.Models
         public virtual ICollection<Copy> Copies { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
-
+        public virtual ICollection<QueueEntry> QueueEntries { get; set; }
     }
 }
