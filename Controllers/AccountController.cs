@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Asp_Web_Lib.Models;
+using Asp_Web_Lib.Resources;
 
 namespace Asp_Web_Lib.Controllers
 {
@@ -70,28 +71,46 @@ namespace Asp_Web_Lib.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
-        }
+			var user = await UserManager.FindByEmailAsync(model.Email);
+			if (user == null)
+			{
+				ModelState.AddModelError("", "Invalid login attempt.");
+				return View(model);
+			}
+
+			var roles = await UserManager.GetRolesAsync(user.Id);
+			bool isAdmin = roles.Contains("Admin");
+
+
+			// rubryka w bazie z potwierdzeniem email służy jako potwierdzenie akceptacji przez admina
+            // admin loguje się bez potwierdzenia
+			if (!user.EmailConfirmed && !isAdmin)
+			{
+				ModelState.AddModelError("", Labels.AccountConfirmationError);
+				return View(model);
+			}
+
+			var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
+
+			switch (result)
+			{
+				case SignInStatus.Success:
+					return RedirectToLocal(returnUrl);
+				case SignInStatus.LockedOut:
+					return View("Lockout");
+				case SignInStatus.RequiresVerification:
+					return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+				case SignInStatus.Failure:
+				default:
+					ModelState.AddModelError("", "Invalid login attempt.");
+					return View(model);
+			}
+		}
 
         //
         // GET: /Account/VerifyCode

@@ -1,0 +1,39 @@
+﻿@using Asp_Web_Lib.Resources
+@{
+    ViewBag.Title = "PendingUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Labels.ConfirmAcconutLabel</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>@Labels.AccountStatus</th>
+            <th>@Labels.Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>
+                    @if(user.EmailConfirmed == false)
+                    {
+                        @Labels.PendingForAproval;
+                    }
+                
+                </td>
+                <td>
+                    <form method="post" action="@Url.Action("ConfirmAccount", "Admin")">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <button type="submit" class="btn btn-success">@Labels.ConfirmAccountBtn</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

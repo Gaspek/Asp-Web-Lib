@@ -390,6 +390,7 @@
     <Content Include="Views\Limits\Details.cshtml" />
     <Content Include="Views\Limits\Edit.cshtml" />
     <Content Include="Views\Limits\Index.cshtml" />
+    <Content Include="Views\Admin\PendingUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202501161835328_Init.resx">
