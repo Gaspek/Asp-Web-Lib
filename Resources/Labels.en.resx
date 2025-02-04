@@ -342,4 +342,10 @@
   <data name="LibraryAdminPanel" xml:space="preserve">
     <value>Library Admin Panel</value>
   </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Hello</value>
+  </data>
 </root>
