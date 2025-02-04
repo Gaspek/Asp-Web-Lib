@@ -91,12 +91,15 @@
             <!-- Elementy nawigacji -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <!-- Powiadomienia -->
+                    <!-- Wyszukiwarka -->
                     <li class="navbar-btn">
-                        <button class="btn btn-outline-light me-2" href="@Url.Action("Notifications", "Home")" title="Notifications">
-                            <i class="bi bi-bell"></i>
-                        </button>
+                        <a href="@Url.Action("Index", "Search")">
+                            <button class="btn btn-outline-light me-2" title="Wyszukiwarka">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </a>
                     </li>
+
 
                     <!-- Koszyk -->
                     <li class="navbar-btn">
@@ -112,7 +115,7 @@
                         @Html.Partial("_LoginPartial")
                     </li>
 
-                   
+
 
                     <!-- Przełącznik języka -->
                     <li class="nav-item dropdown btn btn-outline-light me-2">

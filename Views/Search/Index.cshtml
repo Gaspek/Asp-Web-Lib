@@ -1,7 +1,8 @@
-﻿<main>
-    <h2 class="section-title">Wyszukiwarka Książek</h2>
+﻿@using Asp_Web_Lib.Resources
+<main>
+    <h2 class="section-title">@Labels.Search</h2>
     <div class="search-container">
-        <input type="text" id="searchInput" class="search-input" placeholder="Wpisz tytuł lub autora..." oninput="performSearch()">
+        <input type="text" id="searchInput" class="search-input" placeholder=@Labels.EnterSearch oninput="performSearch()">
     </div>
     <div class="results-wrapper">
         <div id="searchResults" class="results-container">

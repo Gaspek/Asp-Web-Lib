@@ -1,38 +1,42 @@
 ﻿@model Asp_Web_Lib.Models.RegisterViewModel
+@using Asp_Web_Lib.Resources
 @{
     ViewBag.Title = "Register";
 }
 
 <main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
+    <h2 id="title">@Labels.Register</h2>
 
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
     {
         @Html.AntiForgeryToken()
-        <h4>Create a new account.</h4>
+        <h4>@Labels.CreateNewAccount</h4>
         <hr />
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="row">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-2 col-form-label">Email</div>
             <div class="col-md-10">
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
             </div>
         </div>
+        <br />
         <div class="row">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-2 col-form-label">@Labels.Password</div>
             <div class="col-md-10">
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
             </div>
         </div>
+        <br />
         <div class="row">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-2 col-form-label">@Labels.ConfirmPassword</div>
             <div class="col-md-10">
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
             </div>
         </div>
+        <br />
         <div class="row">
             <div class="offset-md-2 col-md-10">
-                <input type="submit" value="Register" class="btn btn-outline-dark" />
+                <input type="submit" value=@Labels.Register class="btn btn-outline-dark" />
             </div>
         </div>
     }

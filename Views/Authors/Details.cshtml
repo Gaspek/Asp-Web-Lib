@@ -1,4 +1,5 @@
 ﻿@model Asp_Web_Lib.Models.Author
+    @using Asp_Web_Lib.Resources
 
 @{
     ViewBag.Title = "Details";
@@ -11,7 +12,9 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @*@Html.DisplayNameFor(model => model.FirstName)*@
+            @Labels.FirstName
+
         </dt>
 
         <dd>
@@ -19,7 +22,9 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @*@Html.DisplayNameFor(model => model.LastName)*@
+            @Labels.LastName
+
         </dt>
 
         <dd>
@@ -27,7 +32,9 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Biography)
+            @*@Html.DisplayNameFor(model => model.Biography)*@
+            @Labels.Biography
+
         </dt>
 
         <dd>
@@ -37,6 +44,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(Labels.Edit, "Edit", new { id = Model.Id }) |
+    @Html.ActionLink(Labels.BackToList, "Index")
 </p>
