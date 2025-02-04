@@ -171,6 +171,7 @@ namespace Asp_Web_Lib.Controllers
                 .Include(b => b.Authors)
                 .Include(b => b.Publisher)
                 .Include(b => b.Category)
+                .Include(b => b.Tags)
                 .FirstOrDefault(b => b.Id == id);
 
             if (book == null)

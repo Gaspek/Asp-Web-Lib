@@ -39,6 +39,26 @@ namespace Asp_Web_Lib.Controllers
             return View(copy);
         }
 
+        // POST: Copies/Add/5
+        [HttpPost]
+        public ActionResult Add(int id)
+        {
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var copy = new Copy
+            {
+                BookId = id,
+                Status = Status.CopyStatus.Available
+            };
+
+            db.Copies.Add(copy);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Books");
+        }
+
         // GET: Copies/Create
         public ActionResult Create()
         {
