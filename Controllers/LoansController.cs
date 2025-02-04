@@ -27,7 +27,40 @@ namespace Asp_Web_Lib.Controllers
             var loans = db.Loans
                 .Include(r => r.Copy.Book)
                 .Include(r => r.User)
-                .Where(r => r.UserId == userId);
+                .Where(r => r.UserId == userId && r.IsHistory == false);
+            var viewModel = new LoanViewModel();
+
+            foreach (var loan in loans.ToList())
+            {
+                var viewItem = new LoanItemViewModel()
+                {
+                    BookId = loan.Copy.BookId,
+                    Title = loan.Copy.Book.Title,
+                    CoverImage = loan.Copy.Book.CoverImage,
+                    LoanId = loan.Id,
+                    DueDate = loan.DueDate,
+                    LoanDate = loan.LoanDate,
+                    LoanStatus = Status.CopyStatus.Borrowed
+                };
+                if (loan.ReturnDate.HasValue)
+                {
+                    viewItem.ReturnDate = loan.ReturnDate;
+                    viewItem.LoanStatus = Status.CopyStatus.Returned;
+                }
+                viewModel.Items.Add(viewItem);
+            }
+
+            return View(viewModel);
+        }
+
+        // GET: Loans
+        public ActionResult History()
+        {
+            var userId = User.Identity.GetUserId();
+            var loans = db.Loans
+                .Include(r => r.Copy.Book)
+                .Include(r => r.User)
+                .Where(r => r.UserId == userId && r.IsHistory);
             var viewModel = new LoanViewModel();
 
             foreach (var loan in loans.ToList())

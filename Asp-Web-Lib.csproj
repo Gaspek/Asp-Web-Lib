@@ -420,6 +420,7 @@
     <Content Include="Views\Admin\PendingUsers.cshtml" />
     <Content Include="Views\Reservations\Manage.cshtml" />
     <Content Include="Views\Loans\Manage.cshtml" />
+    <Content Include="Views\Loans\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202501161835328_Init.resx">

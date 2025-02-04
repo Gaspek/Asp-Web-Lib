@@ -1,0 +1,66 @@
+﻿@using Asp_Web_Lib.Models
+@model Asp_Web_Lib.ViewModels.LoanViewModel
+<main>
+    <h2>Wypożyczenia</h2>
+
+    @if (Model.TotalItems == 0)
+    {
+        <p>Nie masz żadnych rezerwacji.</p>
+    }
+    else
+    {
+        <div class="table-container">
+            <table class="table">
+                <thead class="header">
+                    <tr>
+                        <th>Okładka</th>
+                        <th>Tytuł</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr class="content">
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.CoverImage))
+                                {
+                                    <a href="@Url.Action("Details", "Books", new { id = item.BookId })"> <img src="@Url.Content(item.CoverImage)" alt="@item.Title" style="max-width: 100px; max-height: 150px;" /> </a>
+                                }
+                                else
+                                {
+                                    <span>Brak okładki</span>
+                                }
+                            </td>
+                            <td>@item.Title</td>
+                            <td>
+                                @if (item.LoanStatus == Status.CopyStatus.Borrowed)
+                                {
+                                    <span>Książka znajduje się w twoim posiadaniu</span><br />
+                                    <span>Termin zwrotu: @item.DueDate.ToString("dd-MM-yyyy")</span>
+                                }
+                                else if (item.LoanStatus == Status.CopyStatus.Returned)
+                                {
+                                    <p>
+                                        Książka została zwrócona,<br />
+                                    </p>
+                                }
+                                else
+                                {
+                                    <span>Oczekiwania na dostępność książki</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</main>
+<style>
+    .table-co {
+        width: 2;
+    }
+</style>
+
+@Styles.Render("~/Content/Styles/ModelPanel.css")
