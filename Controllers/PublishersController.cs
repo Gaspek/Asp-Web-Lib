@@ -11,7 +11,7 @@ using Asp_Web_Lib.Models;
 
 namespace Asp_Web_Lib.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Worker,Admin")]
     [Culture]
     public class PublishersController : Controller
     {

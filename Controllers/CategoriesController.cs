@@ -12,7 +12,7 @@ using Asp_Web_Lib.ViewModels;
 
 namespace Asp_Web_Lib.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Worker")]
     [Culture]
     public class CategoriesController : Controller
     {

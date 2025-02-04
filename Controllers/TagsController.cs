@@ -6,12 +6,15 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Asp_Web_Lib.Filters;
 using Asp_Web_Lib.Models;
 using Microsoft.Ajax.Utilities;
 
 namespace Asp_Web_Lib.Controllers
 {
-    public class TagsController : Controller
+    [Culture]
+    [Authorize(Roles = "Worker,Admin")]
+   public class TagsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
