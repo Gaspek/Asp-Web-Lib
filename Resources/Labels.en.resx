@@ -330,4 +330,16 @@
   <data name="WaitingForApprovalToPickup" xml:space="preserve">
     <value>Waiting for approval to pick up</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Manage library</value>
+  </data>
+  <data name="library" xml:space="preserve">
+    <value>Library</value>
+  </data>
+  <data name="LibraryAdminPanel" xml:space="preserve">
+    <value>Library Admin Panel</value>
+  </data>
 </root>

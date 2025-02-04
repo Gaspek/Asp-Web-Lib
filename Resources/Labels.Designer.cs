@@ -376,6 +376,24 @@ namespace Asp_Web_Lib.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Biblioteka.
+        /// </summary>
+        public static string library {
+            get {
+                return ResourceManager.GetString("library", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Panel administracyjny biblioteki.
+        /// </summary>
+        public static string LibraryAdminPanel {
+            get {
+                return ResourceManager.GetString("LibraryAdminPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Ustawienia biblioteki.
         /// </summary>
         public static string LibrarySettings {
@@ -408,6 +426,15 @@ namespace Asp_Web_Lib.Resources {
         public static string Login {
             get {
                 return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Zarządzaj biblioteką.
+        /// </summary>
+        public static string Manage {
+            get {
+                return ResourceManager.GetString("Manage", resourceCulture);
             }
         }
         
@@ -651,6 +678,15 @@ namespace Asp_Web_Lib.Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Użytkownicy.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
             }
         }
         

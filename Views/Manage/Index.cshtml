@@ -6,27 +6,29 @@
 }
 
 <main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
+    <h2 id="title">@Labels.Manage</h2>
+    <hr />
     <div>
         <dl class="dl-horizontal">
             @if (User.IsInRole("Admin"))
             {
-                <dt>Panel administracyjny </dt>
-                <dt><h5>Użytkownicy</h5></dt>
+                <dt><h5>@Labels.AdminPanel</h5></dt>
+                <dt>@Labels.Users</dt>
                 <dd>[ @Html.ActionLink(@Labels.Manage_permissions, "Index", "Admin") ]</dd>
                 <dd>[ @Html.ActionLink(@Labels.AccountsForAproval, "PendingUsers", "Admin") ]</dd>
-
-                <dt><h5>Biblioteka</h5></dt>
+                <br /> 
+                <dt>@Labels.library</dt>
                 <dd>[ @Html.ActionLink(Labels.LibrarySettings, "Index", "Limits") ]</dd>
             }
 
         </dl>
     </div>
+    <br />
     <div>
         <dl class="dl-horizontal">
             @if (User.IsInRole("Admin") || User.IsInRole("Worker"))
             {
-	            <dt>Panel administracyjny biblioteki:</dt>
+	            <dt><h5>@Labels.LibraryAdminPanel</h5></dt>
 	            <dd>[ @Html.ActionLink(Labels.ManageReservations, "Manage", "Reservations") ]</dd> 
 	            <dd>[ @Html.ActionLink(Labels.ManageBorrows, "Manage", "Loans") ]</dd> 
 	            <dd>[ @Html.ActionLink(@Labels.Manage_books, "Index", "Books") ]</dd>
@@ -40,6 +42,7 @@
     </div>
     <p class="text-success">@ViewBag.StatusMessage</p>
     <div>
+        <br />
         <h4>@Labels.ChangeAccountSettings</h4>
         <hr />
         <dl class="dl-horizontal">
@@ -56,11 +59,11 @@
                 }
                 ]
             </dd>
-            <dt>External Logins:</dt>
+            @*<dt>External Logins:</dt>
             <dd>
                 @Model.Logins.Count [
                 @Html.ActionLink("Manage", "ManageLogins") ]
-            </dd>
+            </dd>*@
             @*
                 Phone Numbers can used as a second factor of verification in a two-factor authentication system.
 

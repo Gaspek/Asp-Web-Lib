@@ -330,4 +330,16 @@
   <data name="WaitingForApprovalToPickup" xml:space="preserve">
     <value>Oczekiwanie na zatwierdzenie do odbioru</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>Użytkownicy</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Zarządzaj biblioteką</value>
+  </data>
+  <data name="library" xml:space="preserve">
+    <value>Biblioteka</value>
+  </data>
+  <data name="LibraryAdminPanel" xml:space="preserve">
+    <value>Panel administracyjny biblioteki</value>
+  </data>
 </root>
