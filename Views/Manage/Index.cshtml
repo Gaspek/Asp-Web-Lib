@@ -27,8 +27,8 @@
             @if (User.IsInRole("Admin") || User.IsInRole("Worker"))
             {
 	            <dt>Panel administracyjny biblioteki:</dt>
-	            <dd>[ @Html.ActionLink("Zarządzaj rezerwacjami", "Manage", "Reservations") ]</dd> //DODAĆ LABEL
-	            <dd>[ @Html.ActionLink("Zarządzaj wypożyczeniami", "Manage", "Loans") ]</dd> //DODAĆ LABEL
+	            <dd>[ @Html.ActionLink(Labels.ManageReservations, "Manage", "Reservations") ]</dd> 
+	            <dd>[ @Html.ActionLink(Labels.ManageBorrows, "Manage", "Loans") ]</dd> 
 	            <dd>[ @Html.ActionLink(@Labels.Manage_books, "Index", "Books") ]</dd>
                 <dd>[ @Html.ActionLink(@Labels.Manage_publishers, "Index", "Publishers") ]</dd>
                 <dd>[ @Html.ActionLink(@Labels.Manage_authors, "Index", "Authors") ]</dd>
@@ -40,19 +40,19 @@
     </div>
     <p class="text-success">@ViewBag.StatusMessage</p>
     <div>
-        <h4>Change your account settings</h4>
+        <h4>@Labels.ChangeAccountSettings</h4>
         <hr />
         <dl class="dl-horizontal">
-            <dt>Password:</dt>
+            <dt>@Labels.Password:</dt>
             <dd>
                 [
                 @if (Model.HasPassword)
                 {
-                    @Html.ActionLink("Change your password", "ChangePassword")
+                    @Html.ActionLink(Labels.ChangePassword, "ChangePassword")
                 }
                 else
                 {
-                    @Html.ActionLink("Create", "SetPassword")
+                    @Html.ActionLink(Labels.Create, "SetPassword")
                 }
                 ]
             </dd>
@@ -89,12 +89,12 @@
                     }
                 </dd>
             *@
-            <dt>Two-Factor Authentication:</dt>
+            <!--<dt>Two-Factor Authentication:</dt>
             <dd>
                 <p>
                     There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                     for details on setting up this ASP.NET application to support two-factor authentication.
-                </p>
+                </p>-->
                 @*@if (Model.TwoFactor)
                     {
                         using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { role = "form" }))
@@ -115,7 +115,7 @@
                             </text>
                         }
                     }*@
-            </dd>
+            <!--</dd>-->
         </dl>
     </div>
 </main>

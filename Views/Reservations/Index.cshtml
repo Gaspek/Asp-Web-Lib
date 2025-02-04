@@ -1,11 +1,12 @@
 ﻿@using Asp_Web_Lib.Models
+@using Asp_Web_Lib.Resources
 @model Asp_Web_Lib.ViewModels.ReservationViewModel
 <main>
     <h2>Rezerwacje</h2>
 
     @if (Model.TotalItems == 0)
     {
-        <p>Nie masz żadnych rezerwacji.</p>
+        <p>@Labels.NoReservations</p>
     }
     else
     {
@@ -13,10 +14,10 @@
             <table class="table">
                 <thead class="header">
                     <tr>
-                        <th>Okładka</th>
-                        <th>Tytuł</th>
-                        <th>Status oczekiwania</th>
-                        <th>Akcje</th>
+                        <th>@Labels.Cover</th>
+                        <th>@Labels.Title</th>
+                        <th>@Labels.WaitingStatus</th>
+                        <th>@Labels.Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,33 +31,33 @@
                                 }
                                 else
                                 {
-                                    <span>Brak okładki</span>
+                                    <span>@Labels.NoCover</span>
                                 }
                             </td>
                             <td>@item.Title</td>
                             <td>
 	                            @if (item.ReservationStatus == Status.CopyStatus.ReadyForPickUp)
 	                            {
-		                            <span>Książka gotowa do odbioru</span><br/>
+		                            <span>@Labels.ReadyForpickup</span><br/>
 		                            if (item.AcceptanceDate.HasValue)
 		                            {
 			                            var dueDate = item.AcceptanceDate.Value.AddDays(30);
-			                            <span>Masz czas na odbiór do: @dueDate.ToString("dd-MM-yyyy")</span>
+			                            <span>@Labels.TimeForPickup @dueDate.ToString("dd-MM-yyyy")</span>
 		                            }
 		                            else
 		                            {
-			                            <span>Błąd przy wczytywaniu daty oczekiwania</span>
+			                            <span>@Labels.Errorreverwations</span>
 		                            }
 	                            }else if (item.ReservationStatus == Status.CopyStatus.Reserved)
 	                            {
 		                            <p>
-			                            Książka zarezerwowana,<br/>
-                                        Oczekiwanie na zatwierdzenie do odbioru
+			                            @Labels.BookReserved,<br/>
+                                        @Labels.WaitingForApprovalToPickup
 		                            </p>
 	                            }
 	                            else
 	                            {
-                                    <span>Oczekiwania na dostępność książki</span>
+                                    <span>@Labels.WaitingForAvalability</span>
 	                            }
                             </td>
                             <td class="link-container">
@@ -65,7 +66,7 @@
                                         @Html.AntiForgeryToken()
                                         <input type="hidden" name="bookId" value="@item.BookId" />
                                         <input type="hidden" name="reservationId" value="@item.ReservationId" />
-                                        <button type="submit" class="table-button">Usuń</button>
+                                        <button type="submit" class="table-button">@Labels.Delete</button>
                                     </form>
                                 </div>
                             </td>

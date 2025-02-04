@@ -1,10 +1,11 @@
 ﻿@model Asp_Web_Lib.Models.ManageUserRolesViewModel
+@using Asp_Web_Lib.Resources
 
 @{
 	ViewBag.Title = "Zarządzaj rolami - " + Model.Email;
 }
 
-<h2>Zarządzaj rolami dla @Model.Email</h2>
+<h2>@Labels.ManageRoles @Model.Email</h2>
 
 @using (Html.BeginForm())
 {
@@ -12,10 +13,10 @@
 	@Html.HiddenFor(m => m.UserId)
 
 	<div class="form-group">
-		@Html.Label("Role")
+		@Labels.Roles
 		@Html.ListBoxFor(m => m.SelectedRoles, Model.RolesList, new { @class = "form-control" })
 	</div>
 
 	<button type="submit" class="btn btn-success">Zapisz</button>
-	@Html.ActionLink("Powrót", "Index", null, new { @class = "btn btn-default" })
+	@Html.ActionLink(@Labels.GoBack, "Index", null, new { @class = "btn btn-default" })
 }

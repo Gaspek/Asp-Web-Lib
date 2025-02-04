@@ -129,6 +129,9 @@
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
+  <data name="Author" xml:space="preserve">
+    <value>Author</value>
+  </data>
   <data name="Change_password" xml:space="preserve">
     <value>Change your password</value>
   </data>
@@ -138,8 +141,17 @@
   <data name="ConfirmAccountBtn" xml:space="preserve">
     <value>Confirm account</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="CreateNewAccount" xml:space="preserve">
+    <value>Create a new account</value>
+  </data>
   <data name="ExtensionDays" xml:space="preserve">
     <value>The number of days for book extension/loan</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>Back</value>
   </data>
   <data name="LibrarySettings" xml:space="preserve">
     <value>Library Settings</value>
@@ -183,13 +195,139 @@
   <data name="MaxWaitingBooks" xml:space="preserve">
     <value>The maximum number of books in the waiting list</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
   <data name="PendingForAproval" xml:space="preserve">
     <value>Pending for aproval</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
   <data name="Roles" xml:space="preserve">
     <value>Roles</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="Biography" xml:space="preserve">
+    <value>Biography</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>Back to List</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="AddToTheQueue" xml:space="preserve">
+    <value>Add to queue</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="AdminPanel" xml:space="preserve">
+    <value>Admin panel</value>
+  </data>
+  <data name="AvaliableCopies" xml:space="preserve">
+    <value>Avaliable copies</value>
+  </data>
+  <data name="BookCover" xml:space="preserve">
+    <value>Book cover</value>
+  </data>
+  <data name="BookReserved" xml:space="preserve">
+    <value>Book reserved</value>
+  </data>
+  <data name="Borrow" xml:space="preserve">
+    <value>Borrow</value>
+  </data>
+  <data name="BorrowedBooks" xml:space="preserve">
+    <value>Borrowed Books</value>
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
+  <data name="Cover" xml:space="preserve">
+    <value>Cover</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Loans history</value>
+  </data>
+  <data name="NoCover" xml:space="preserve">
+    <value>No Cover</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Payments</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Reservations" xml:space="preserve">
+    <value>Reservations</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="EmptyCartMessage" xml:space="preserve">
+    <value>Your cart is empty.</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="ChangeAccountSettings" xml:space="preserve">
+    <value>Change account settings</value>
+  </data>
+  <data name="YouMayLike" xml:space="preserve">
+    <value>You may like</value>
+  </data>
+  <data name="WorkerPanel" xml:space="preserve">
+    <value>Worker panel</value>
+  </data>
+  <data name="WaitingStatus" xml:space="preserve">
+    <value>Waiting Status</value>
+  </data>
+  <data name="WaitingForAvalability" xml:space="preserve">
+    <value>Waiting for avalability</value>
+  </data>
+  <data name="Errorreverwations" xml:space="preserve">
+    <value>Error getting the pickup deadline</value>
+  </data>
+  <data name="ManageBorrows" xml:space="preserve">
+    <value>Manage loans</value>
+  </data>
+  <data name="ManageReservations" xml:space="preserve">
+    <value>Manage reservations</value>
+  </data>
+  <data name="EnterSearch" xml:space="preserve">
+    <value>Enter a title or an author. . .</value>
+  </data>
+  <data name="NewAdditions" xml:space="preserve">
+    <value>New Additions</value>
+  </data>
+  <data name="NoReservations" xml:space="preserve">
+    <value>You have no reservations</value>
+  </data>
+  <data name="ReadyForpickup" xml:space="preserve">
+    <value>Book ready for pick up</value>
+  </data>
+  <data name="TimeForPickup" xml:space="preserve">
+    <value>You have time for pick up till:</value>
+  </data>
+  <data name="WaitingForApprovalToPickup" xml:space="preserve">
+    <value>Waiting for approval to pick up</value>
   </data>
 </root>

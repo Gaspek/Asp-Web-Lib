@@ -1,6 +1,6 @@
-﻿
+﻿@using Asp_Web_Lib.Resources
 <main>
-    <h2 class="section-title">Nowe Pozycje</h2>
+    <h2 class="section-title">@Labels.NewAdditions</h2>
     <div class="slider-wrapper">
 	    <div class="slider-container">
 		    @foreach (var book in Model.NewBooks)
@@ -15,7 +15,7 @@
 	    </div>
     </div>
     
-    <h2 class="section-title">Propozycje</h2>
+    <h2 class="section-title">@Labels.YouMayLike</h2>
     <div class="slider-wrapper">
 	    <div class="slider-container">
 		    @foreach (var book in Model.Books)

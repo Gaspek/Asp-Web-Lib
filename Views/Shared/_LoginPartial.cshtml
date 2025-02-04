@@ -14,22 +14,22 @@
 
                 @if (User.IsInRole("Admin"))
                 {
-                    <li>@Html.ActionLink("Panel admina", "Index", "Manage", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink(Labels.AdminPanel, "Index", "Manage", null, new { @class = "dropdown-item" })</li>
                     <hr />
                 }
                 else if (User.IsInRole("Worker"))
                 {
-                    <li>@Html.ActionLink("Panel pracownika", "Index", "Manage", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink(Labels.WorkerPanel, "Index", "Manage", null, new { @class = "dropdown-item" })</li>
                     <hr />
                 }
 
-                <li>@Html.ActionLink("Rezerwacje", "Index", "Reservations", null, new { @class = "dropdown-item" })</li>
-                <li>@Html.ActionLink("Wypożyczenia", "Index", "Loans", null, new { @class = "dropdown-item" })</li>
-                <li>@Html.ActionLink("Historia wypożyczeń", "Index", "Home", null, new { @class = "dropdown-item" })</li>
-                <li>@Html.ActionLink("Opłaty", "Index", "Home", null, new { @class = "dropdown-item" })</li>
+                <li>@Html.ActionLink(Labels.Reservations, "Index", "Reservations", null, new { @class = "dropdown-item" })</li>
+                <li>@Html.ActionLink(Labels.BorrowedBooks, "Index", "Loans", null, new { @class = "dropdown-item" })</li>
+                <li>@Html.ActionLink(Labels.History, "Index", "Home", null, new { @class = "dropdown-item" })</li>
+                <li>@Html.ActionLink(Labels.Payments, "Index", "Home", null, new { @class = "dropdown-item" })</li>
                 <hr />
-                <li>@Html.ActionLink("Ustawienia", "Index", "Manage", null, new { @class = "dropdown-item" })</li>
-                <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Wyloguj się</a></li>
+                @*<li>@Html.ActionLink("Ustawienia", "Index", "Manage", null, new { @class = "dropdown-item" })</li>*@
+                <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">@Labels.Log_off</a></li>
             </ul>
         </li>
     }

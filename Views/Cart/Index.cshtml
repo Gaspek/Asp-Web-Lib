@@ -1,10 +1,11 @@
 ﻿@model Asp_Web_Lib.ViewModels.CartViewModel
+	@using Asp_Web_Lib.Resources
 <main>
-<h2>Koszyk</h2>
+<h2>@Labels.Cart</h2>
 
 @if (Model.TotalItems == 0)
 {
-    <p>Twój koszyk jest pusty.</p>
+    <p>@Labels.Cart</p>
 }
 else
 {
@@ -12,10 +13,10 @@ else
 		<table class="table">
 			<thead class="header">
 			<tr>
-				<th>Okładka</th>
-				<th>Tytuł</th>
-				<th>Dostępne egzemplarze</th>
-				<th>Akcje</th>
+				<th>@Labels.Cover</th>
+				<th>@Labels.Title</th>
+				<th>@Labels.AvaliableCopies</th>
+				<th>@Labels.Actions</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -29,7 +30,7 @@ else
 						}
 						else
 						{
-							<span>Brak okładki</span>
+							<span>@Labels.NoCover</span>
 						}
 					</td>
 					<td>@item.Title</td>
@@ -42,7 +43,7 @@ else
                                 {
 	                                <form action="@Url.Action("Reserve", "Cart", new { bookId = item.BookId })" method="post">
                                         <button class="table-button" type="submit">
-                                            Dołącz do kolejki
+                                            @Labels.AddToTheQueue
                                         </button>
 	                                </form>
                                 }
@@ -53,7 +54,7 @@ else
                                 {
 	                                <form action="@Url.Action("Reserve", "Cart", new { bookId = item.BookId })" method="post">
 		                                <button class="table-button" type="submit">
-			                                Wypożycz
+			                                @Labels.Borrow
 		                                </button>
 	                                </form>
                                 }
@@ -62,7 +63,7 @@ else
                             <form action="@Url.Action("Remove", "Cart")" method="post" class="">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="bookId" value="@item.BookId" />
-                                <button type="submit" class="table-button">Usuń</button>
+                                <button type="submit" class="table-button">@Labels.Remove</button>
                             </form>
 
                         </div>
