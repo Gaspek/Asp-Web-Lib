@@ -11,7 +11,7 @@ using Asp_Web_Lib.Models;
 
 namespace Asp_Web_Lib.Controllers
 {
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = "Admin,Worker")]
     [Culture]
     public class CopiesController : Controller
     {
@@ -37,6 +37,26 @@ namespace Asp_Web_Lib.Controllers
                 return HttpNotFound();
             }
             return View(copy);
+        }
+
+        // POST: Copies/Add/5
+        [HttpPost]
+        public ActionResult Add(int id)
+        {
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var copy = new Copy
+            {
+                BookId = id,
+                Status = Status.CopyStatus.Available
+            };
+
+            db.Copies.Add(copy);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Books");
         }
 
         // GET: Copies/Create

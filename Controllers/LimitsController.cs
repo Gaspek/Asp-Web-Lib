@@ -6,10 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Asp_Web_Lib.Filters;
 using Asp_Web_Lib.Models;
 
 namespace Asp_Web_Lib.Controllers
 {
+    [Culture]
+    [Authorize(Roles = "Admin")]
     public class LimitsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

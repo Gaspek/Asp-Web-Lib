@@ -8,9 +8,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using Asp_Web_Lib.Filters;
 
 namespace Asp_Web_Lib.Controllers
 {
+    [Culture]
     public class CartController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

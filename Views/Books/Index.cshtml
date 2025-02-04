@@ -29,6 +29,9 @@
 					Rok wydania
 				</th>
 				<th>
+					Liczba kopii
+				</th>
+				<th>
 					Okładka
 				</th>
 				<th></th>
@@ -65,15 +68,25 @@
 					<td>
 						@item.PublicationYear.LocalDateTime.Day/@item.PublicationYear.LocalDateTime.Month/@item.PublicationYear.LocalDateTime.Year
 					</td>
+                    <td>
+                        @item.Copies.Count
+                    </td>
 					<td>
 						<img src="@item.CoverImage" />
 					</td>
 					<td class="link-container">
-                        <div class="action-buttons">
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "table-button" })
-                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "table-button" })
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "table-button" })
-                        </div>
+						<div class="action-buttons">
+							<div class="action-buttons">
+								<form action="@Url.Action("Add", "Copies")" method="post" class="">
+									@Html.AntiForgeryToken()
+									<input type="hidden" name="Id" value="@item.Id" />
+									<button type="submit" class="table-button">Dodaj kopię</button>
+								</form>
+							</div>
+							@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "table-button" })
+							@Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "table-button" })
+							@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "table-button" })
+						</div>
 					</td>
 				</tr>
 			}

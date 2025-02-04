@@ -83,6 +83,7 @@ namespace Asp_Web_Lib.Controllers
 
         //POST:Loans/Return/5
         [HttpPost]
+        [Authorize(Roles = "Worker,Admin")]
         public ActionResult Return(int loanId)
         {
             var loan = db.Loans.Include(c => c.Copy).Include(c => c.User).FirstOrDefault(c => c.Id == loanId);
